@@ -582,6 +582,251 @@
       font-size:.83rem;
     }
 
+    /* Transición cinematográfica: el resplandor nace sobre el reloj */
+    .phrase-transition{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      pointer-events:none;
+      opacity:0;
+      visibility:hidden;
+      background:transparent;
+    }
+
+    .phrase-transition.active{
+      opacity:1;
+      visibility:visible;
+    }
+
+    .transition-cover{
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:18vmax;
+      height:18vmax;
+      border-radius:50%;
+      transform:translate(-50%,-50%) scale(.08);
+      opacity:0;
+      background:
+        radial-gradient(circle,
+          #ffffff 0%,
+          #f5fbff 12%,
+          #d9ecff 28%,
+          #b7d8fb 48%,
+          #82afe9 70%,
+          #4f83d0 100%);
+      box-shadow:
+        0 0 80px rgba(255,255,255,1),
+        0 0 160px rgba(104,167,246,.82),
+        0 0 260px rgba(39,100,190,.42);
+      filter:blur(2px);
+    }
+
+    .phrase-transition.bloom .transition-cover{
+      animation:coverBloom 1.9s cubic-bezier(.2,.78,.2,1) forwards;
+    }
+
+    .transition-rays{
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:34vmax;
+      height:34vmax;
+      transform:translate(-50%,-50%) scale(.22) rotate(0deg);
+      opacity:0;
+      background:
+        conic-gradient(
+          from 0deg,
+          transparent 0deg 12deg,
+          rgba(255,255,255,.82) 12deg 18deg,
+          transparent 18deg 42deg,
+          rgba(255,255,255,.52) 42deg 47deg,
+          transparent 47deg 78deg,
+          rgba(255,255,255,.9) 78deg 84deg,
+          transparent 84deg 360deg
+        );
+      filter:blur(9px);
+    }
+
+    .phrase-transition.bloom .transition-rays{
+      animation:raysBloom 1.8s ease-out forwards;
+    }
+
+    .phrase-halo{
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:22vmax;
+      height:22vmax;
+      border-radius:50%;
+      transform:translate(-50%,-50%) scale(.12);
+      opacity:0;
+      z-index:2;
+      background:
+        radial-gradient(circle,
+          rgba(255,255,255,1) 0%,
+          rgba(255,255,255,.98) 14%,
+          rgba(201,229,255,.82) 35%,
+          rgba(111,171,241,.44) 58%,
+          transparent 76%);
+      filter:blur(4px);
+      pointer-events:none;
+    }
+
+    .phrase-halo::before,
+    .phrase-halo::after{
+      content:"";
+      position:absolute;
+      inset:18%;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.72);
+      box-shadow:
+        0 0 40px rgba(255,255,255,.9),
+        0 0 90px rgba(72,139,228,.45);
+      opacity:0;
+    }
+
+    .phrase-halo::after{inset:32%}
+
+    .phrase-transition.reveal .phrase-halo{
+      animation:phraseHaloBloom 1.45s cubic-bezier(.2,.72,.2,1) forwards;
+    }
+
+    .phrase-transition.reveal .phrase-halo::before{
+      animation:phraseHaloRing 1.5s ease .12s forwards;
+    }
+
+    .phrase-transition.reveal .phrase-halo::after{
+      animation:phraseHaloRing 1.5s ease .28s forwards;
+    }
+
+    .phrase-wrap{
+      position:relative;
+      z-index:4;
+      width:min(980px,calc(100% - 36px));
+      text-align:center;
+      opacity:0;
+      transform:translateY(22px) scale(.965);
+    }
+
+    .phrase-transition.reveal .phrase-wrap{
+      animation:phraseEnter 1s cubic-bezier(.2,.76,.2,1) forwards;
+    }
+
+    .phrase-wrap h2{
+      margin:0;
+      color:#0b2a78;
+      font-size:clamp(2.7rem,7vw,6.9rem);
+      line-height:.96;
+      letter-spacing:-.06em;
+      font-weight:900;
+      text-wrap:balance;
+      text-shadow:0 18px 55px rgba(31,78,157,.22);
+    }
+
+    .phrase-wrap h2 span{
+      background:linear-gradient(90deg,#0a2a78 0%,#1457d6 48%,#2f8de9 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      background-size:180% auto;
+      animation:textShine 2.8s linear .15s both;
+    }
+
+    .phrase-transition.phrase-out .phrase-wrap{
+      animation:phraseExit 1.15s cubic-bezier(.4,0,.2,1) forwards !important;
+      pointer-events:none;
+    }
+
+    .phrase-transition.finish{
+      animation:transitionExit 1.15s cubic-bezier(.4,0,.2,1) forwards;
+    }
+
+    @keyframes coverBloom{
+      0%{opacity:0;transform:translate(-50%,-50%) scale(.08)}
+      18%{opacity:1}
+      62%{opacity:1;transform:translate(-50%,-50%) scale(2.8)}
+      100%{opacity:1;transform:translate(-50%,-50%) scale(8.8)}
+    }
+
+    @keyframes raysBloom{
+      0%{opacity:0;transform:translate(-50%,-50%) scale(.22) rotate(0deg)}
+      35%{opacity:.8}
+      100%{opacity:0;transform:translate(-50%,-50%) scale(2.5) rotate(18deg)}
+    }
+
+    @keyframes phraseHaloBloom{
+      0%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(.12);
+      }
+      34%{opacity:1}
+      100%{
+        opacity:.9;
+        transform:translate(-50%,-50%) scale(3.1);
+      }
+    }
+
+    @keyframes phraseHaloRing{
+      0%{opacity:0;transform:scale(.4)}
+      45%{opacity:.9}
+      100%{opacity:0;transform:scale(2.8)}
+    }
+
+    @keyframes phraseEnter{
+      to{opacity:1;transform:translateY(0) scale(1)}
+    }
+
+    @keyframes phraseExit{
+      0%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+        filter:blur(0);
+      }
+      100%{
+        opacity:0;
+        transform:translateY(0) scale(1);
+        filter:blur(5px);
+      }
+    }
+      45%{
+        opacity:.72;
+        transform:translateY(-7px) scale(.94);
+        filter:blur(2px);
+      }
+      100%{
+        opacity:0;
+        transform:translateY(-28px) scale(.78);
+        filter:blur(10px);
+      }
+    }
+
+    @keyframes transitionExit{
+      0%{
+        opacity:1;
+        filter:brightness(1);
+      }
+      100%{
+        opacity:0;
+        filter:brightness(1.08) blur(4px);
+        visibility:hidden;
+      }
+    }
+
+    @keyframes textShine{
+      from{background-position:0 center}
+      to{background-position:180% center}
+    }
+
+    @media (max-width:520px){
+      .phrase-wrap h2{
+        font-size:clamp(2.4rem,13vw,4.25rem);
+      }
+    }
+
     footer{
       position:relative;
       z-index:2;
@@ -639,6 +884,15 @@
       <div class="loader-title">Abriendo la madriguera</div>
       <div class="loader-sub">Sigue al Conejo Blanco</div>
     </div>
+  <div class="phrase-transition" id="phraseTransition" aria-hidden="true">
+    <div class="transition-cover"></div>
+    <div class="transition-rays"></div>
+    <div class="phrase-halo"></div>
+    <div class="phrase-wrap">
+      <h2>¿Estás listo para conocer <span>tu patrón?</span></h2>
+    </div>
+  </div>
+
   </div>
 
   <div class="scene" aria-hidden="true">
@@ -797,8 +1051,40 @@
     const searchPanel = $("#searchPanel");
     const card = $("#profileCard");
 
+    const phraseTransition = $("#phraseTransition");
+
     window.addEventListener("load", () => {
-      setTimeout(() => loader.classList.add("hide"), 1300);
+      setTimeout(() => {
+        // El reloj continúa visible; el resplandor nace encima de él.
+        phraseTransition.classList.add("active","bloom");
+
+        // Cuando el resplandor ya cubrió la pantalla, aparece la frase.
+        setTimeout(() => {
+          phraseTransition.classList.add("reveal");
+        }, 2100);
+
+        // Primero desaparece únicamente la frase.
+        setTimeout(() => {
+          // Conserva "reveal" activo para evitar que la frase salte a opacity:0.
+          // La salida animada toma el control suavemente.
+          phraseTransition.classList.add("phrase-out");
+
+          // Se deja una pausa clara después de desaparecer la frase.
+          // Luego se van juntos el reloj y el resplandor.
+          // El reloj y el resplandor comienzan a desaparecer
+          // exactamente al mismo tiempo que la frase.
+          loader.classList.add("hide");
+          phraseTransition.classList.add("finish");
+
+          setTimeout(() => {
+            phraseTransition.classList.remove(
+              "active","bloom","phrase-out","finish"
+            );
+          }, 1250);
+
+        }, 5400);
+
+      }, 1500);
     });
 
     function normalize(value){
