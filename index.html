@@ -7,23 +7,6 @@
   <title>Siguiendo al Conejo Blanco</title>
   <meta name="description" content="Descubre tu patrón de atención y revela tu tarjeta digital." />
 
-  .card-image{
-    display:block;
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    object-position:center;
-    border-radius:28px;
-    background:#000;
-}
-
-.participant-name{
-    margin:0 0 16px;
-    text-align:center;
-    font-size:1rem;
-    font-weight:800;
-    color:#173d87;
-}
   <style>
     :root{
       --bg:#dfeaff;
@@ -385,12 +368,15 @@
     .error{
       display:none;
       margin-top:13px;
-      padding:11px 13px;
+      padding:13px 15px;
       border-radius:13px;
-      color:#ffd8df;
-      border:1px solid rgba(255,99,132,.3);
-      background:rgba(255,99,132,.09);
-      font-size:.84rem;
+      color:#7a1020;
+      border:1px solid rgba(170,25,50,.38);
+      background:rgba(255,232,236,.96);
+      box-shadow:0 8px 24px rgba(120,18,35,.12);
+      font-size:.88rem;
+      font-weight:800;
+      line-height:1.45;
     }
 
     .card-stage{
@@ -412,6 +398,29 @@
 
     .card.flipped{transform:rotateY(180deg)}
 
+    .card-image{
+      position:absolute;
+      inset:0;
+      display:block;
+      width:100%;
+      height:100%;
+      max-width:100%;
+      max-height:100%;
+      object-fit:contain;
+      object-position:center;
+      border-radius:28px;
+      background:#000;
+      z-index:1;
+    }
+
+    .participant-name{
+      margin:0 0 16px;
+      text-align:center;
+      font-size:1rem;
+      font-weight:800;
+      color:#173d87;
+    }
+
     .face{
       position:absolute;
       inset:0;
@@ -432,6 +441,8 @@
       background:conic-gradient(from 90deg,transparent,rgba(143,197,255,.28),transparent 30%,rgba(255,255,255,.16),transparent 65%);
       animation:holo 8s linear infinite;
       mix-blend-mode:screen;
+      z-index:2;
+      pointer-events:none;
     }
     @keyframes holo{to{transform:rotate(360deg)}}
 
@@ -826,17 +837,6 @@
         filter:blur(5px);
       }
     }
-      45%{
-        opacity:.72;
-        transform:translateY(-7px) scale(.94);
-        filter:blur(2px);
-      }
-      100%{
-        opacity:0;
-        transform:translateY(-28px) scale(.78);
-        filter:blur(10px);
-      }
-    }
 
     @keyframes transitionExit{
       0%{
@@ -968,16 +968,16 @@
         <div class="glass panel">
           <div id="searchPanel">
             <h2>Descubre tu patrón</h2>
-            <p>Escribe el número de resgistro que recibiste para revelar tu resultado.</p>
+            <p>Escribe el número de registro que recibiste para revelar tu resultado.</p>
 
-            <label for="folio">Número de resgistro</label>
+            <label for="folio">Número de registro</label>
             <div class="input-wrap">
               <span>⌁</span>
               <input id="folio" type="text" inputmode="text" autocomplete="off" placeholder="Ej. CB-0001" maxlength="30" />
             </div>
             <button class="primary" id="revealBtn" type="button">Entrar a la madriguera</button>
             <div class="error" id="error" role="alert"></div>
-            <div class="helper">También puedes probar con: CB-0001, CB-0002, CB-0003, CB-0004, CB-0005 o CB-0006</div>
+            <div class="helper">Ingresa exactamente el código de registro que recibiste.</div>
           </div>
 
 <div class="card-stage" id="cardStage">
@@ -1149,6 +1149,10 @@
   $("#cardBackImage").alt =
     `Reverso de la tarjeta de ${profile.nombre || perfil}`;
 
+  $("#participantName").textContent = profile.nombre
+    ? `Resultado de ${profile.nombre}`
+    : "Tu resultado";
+
   card.classList.remove("flipped");
   searchPanel.style.display = "none";
   cardStage.style.display = "block";
@@ -1159,7 +1163,7 @@
       const folio = normalize(folioInput.value);
 
       if(!folio){
-        showError("Escribe tu número de resguardo.");
+        showError("Escribe tu número de registro.");
         folioInput.focus();
         return;
       }
@@ -1172,7 +1176,7 @@
         const profile = await fetchProfile(folio);
 
         if(!profile){
-          showError("No encontramos ese resguardo. Revisa que esté escrito correctamente.");
+          showError("No encontramos ese registro. Revisa que esté escrito correctamente.");
           return;
         }
 
@@ -1202,6 +1206,9 @@
       cardStage.style.display = "none";
       searchPanel.style.display = "block";
       folioInput.value = "";
+      $("#participantName").textContent = "";
+      $("#cardFrontImage").src = "";
+      $("#cardBackImage").src = "";
       clearError();
       folioInput.focus();
     });
