@@ -387,7 +387,7 @@
 
     .card{
       position:relative;
-      width:min(100%,390px);
+      width:min(100%,430px);
       aspect-ratio:2/3;
       margin:0 auto;
       transform-style:preserve-3d;
@@ -398,27 +398,20 @@
 
     .card.flipped{transform:rotateY(180deg)}
 
+    .front,
+    .back{
+      background-color:#000;
+      background-repeat:no-repeat;
+      background-position:center;
+      background-size:100% 100%;
+    }
+
     .card-image{
-      position:absolute;
-      inset:0;
-      display:block;
-      width:100%;
-      height:100%;
-      max-width:100%;
-      max-height:100%;
-      object-fit:contain;
-      object-position:center;
-      border-radius:28px;
-      background:#000;
-      z-index:1;
+      display:none !important;
     }
 
     .participant-name{
-      margin:0 0 16px;
-      text-align:center;
-      font-size:1rem;
-      font-weight:800;
-      color:#173d87;
+      display:none;
     }
 
     .face{
@@ -441,8 +434,6 @@
       background:conic-gradient(from 90deg,transparent,rgba(143,197,255,.28),transparent 30%,rgba(255,255,255,.16),transparent 65%);
       animation:holo 8s linear infinite;
       mix-blend-mode:screen;
-      z-index:2;
-      pointer-events:none;
     }
     @keyframes holo{to{transform:rotate(360deg)}}
 
@@ -837,6 +828,17 @@
         filter:blur(5px);
       }
     }
+      45%{
+        opacity:.72;
+        transform:translateY(-7px) scale(.94);
+        filter:blur(2px);
+      }
+      100%{
+        opacity:0;
+        transform:translateY(-28px) scale(.78);
+        filter:blur(10px);
+      }
+    }
 
     @keyframes transitionExit{
       0%{
@@ -1122,41 +1124,42 @@
     }
 
     function renderProfile(profile){
-  const perfil = String(profile.perfil || "")
-    .trim()
-    .toLowerCase();
+      const perfil = String(profile.perfil || "")
+        .trim()
+        .toLowerCase();
 
-  const perfilesPermitidos = [
-    "conejo",
-    "reina",
-    "alicia",
-    "gato",
-    "sombrerero"
-  ];
+      const perfilesPermitidos = [
+        "conejo",
+        "reina",
+        "alicia",
+        "gato",
+        "sombrerero"
+      ];
 
-  if (!perfilesPermitidos.includes(perfil)) {
-    throw new Error(
-      `El perfil "${perfil}" no tiene una tarjeta configurada.`
-    );
-  }
+      if (!perfilesPermitidos.includes(perfil)) {
+        throw new Error(`El perfil "${perfil}" no tiene una tarjeta configurada.`);
+      }
 
-  $("#cardFrontImage").src = `cards/${perfil}-front.png`;
-  $("#cardBackImage").src = `cards/${perfil}-back.png`;
+      const BASE_CARDS =
+        "https://siguiendoalconejoblanco.github.io/Conejo-Blanco/cards/";
 
-  $("#cardFrontImage").alt =
-    `Frente de la tarjeta de ${profile.nombre || perfil}`;
+      const frontSrc = `${BASE_CARDS}${perfil}-front.png`;
+      const backSrc  = `${BASE_CARDS}${perfil}-back.png`;
 
-  $("#cardBackImage").alt =
-    `Reverso de la tarjeta de ${profile.nombre || perfil}`;
+      const frontFace = document.querySelector(".face.front");
+      const backFace  = document.querySelector(".face.back");
 
-  $("#participantName").textContent = profile.nombre
-    ? `Resultado de ${profile.nombre}`
-    : "Tu resultado";
+      frontFace.style.background = `#000 url("${frontSrc}") center center / contain no-repeat`;
+      backFace.style.background  = `#000 url("${backSrc}") center center / contain no-repeat`;
 
-  card.classList.remove("flipped");
-  searchPanel.style.display = "none";
-  cardStage.style.display = "block";
-}
+      $("#participantName").textContent = profile.nombre
+        ? `Resultado de ${profile.nombre}`
+        : "Tu resultado";
+
+      card.classList.remove("flipped");
+      searchPanel.style.display = "none";
+      cardStage.style.display = "block";
+    }
 
     async function reveal(){
       clearError();
@@ -1207,8 +1210,8 @@
       searchPanel.style.display = "block";
       folioInput.value = "";
       $("#participantName").textContent = "";
-      $("#cardFrontImage").src = "";
-      $("#cardBackImage").src = "";
+      document.querySelector(".face.front").style.background = "";
+      document.querySelector(".face.back").style.background = "";
       clearError();
       folioInput.focus();
     });
