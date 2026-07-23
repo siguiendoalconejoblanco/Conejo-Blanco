@@ -735,7 +735,24 @@
       background-size:180% auto;
       animation:textShine 2.8s linear .15s both;
     }
+.intro{
+    display:block;
 
+    /* Mismo estilo, solo más pequeño */
+    font-size:70%;
+    font-weight:900;
+    line-height:.96;
+    letter-spacing:-.06em;
+
+    color:#0b2a78;
+    text-shadow:0 18px 55px rgba(31,78,157,.22);
+
+    margin-bottom:12px;
+}
+
+.highlight{
+    display:block;
+}
     .phrase-transition.phrase-out .phrase-wrap{
       animation:phraseExit 1.15s cubic-bezier(.4,0,.2,1) forwards !important;
       pointer-events:none;
@@ -889,7 +906,10 @@
     <div class="transition-rays"></div>
     <div class="phrase-halo"></div>
     <div class="phrase-wrap">
-      <h2>¿Estás listo para conocer <span>tu patrón?</span></h2>
+      <h2>
+    <span class="intro">¿Estás listo para conocer</span>
+    <span class="highlight">tu patrón?</span>
+      </h2>
     </div>
   </div>
 
