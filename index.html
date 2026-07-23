@@ -737,15 +737,19 @@
     }
 .small-text{
     display:block;
-    font-size:1.5rem;   /* Cambia este valor */
-    font-weight:500;
-    margin-bottom:10px;
+    font-size:clamp(1.9rem,4vw,3.2rem); /* Más pequeña pero elegante */
+    font-weight:900;                    /* Igual que el título */
+    letter-spacing:-0.04em;             /* Menos juntas */
+    line-height:1.05;
+    margin-bottom:12px;
 }
 
 .big-text{
     display:block;
-    font-size:clamp(2.7rem,7vw,6.9rem); /* El tamaño actual */
+    font-size:clamp(2.7rem,7vw,6.9rem);
     font-weight:900;
+    letter-spacing:-0.06em;
+    line-height:.96;
 }
     .phrase-transition.phrase-out .phrase-wrap{
       animation:phraseExit 1.15s cubic-bezier(.4,0,.2,1) forwards !important;
