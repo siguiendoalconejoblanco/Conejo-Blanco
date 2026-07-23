@@ -735,7 +735,18 @@
       background-size:180% auto;
       animation:textShine 2.8s linear .15s both;
     }
+.small-text{
+    display:block;
+    font-size:1.5rem;   /* Cambia este valor */
+    font-weight:500;
+    margin-bottom:10px;
+}
 
+.big-text{
+    display:block;
+    font-size:clamp(2.7rem,7vw,6.9rem); /* El tamaño actual */
+    font-weight:900;
+}
     .phrase-transition.phrase-out .phrase-wrap{
       animation:phraseExit 1.15s cubic-bezier(.4,0,.2,1) forwards !important;
       pointer-events:none;
@@ -889,7 +900,9 @@
     <div class="transition-rays"></div>
     <div class="phrase-halo"></div>
     <div class="phrase-wrap">
-      <h2>¿Estás listo para conocer <span>tu patrón de atención?</span></h2>
+      <h2> 
+    <span class="small-text">¿Estás listo para conocer</span>
+    <span class="big-text">tu patrón de atención?</span></h2>
     </div>
   </div>
 
