@@ -141,29 +141,35 @@
       font-size:.88rem;
     }
 
-   .brand-mark{
+.brand-mark{
     width:56px;
     height:56px;
+    min-width:56px;
+    max-width:56px;
     flex:0 0 56px;
-    overflow:hidden;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    background:none;
-    border:none;
+    position:relative;
+    overflow:hidden;
+
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:16px;
     box-shadow:none;
-    backdrop-filter:none;
+    backdrop-filter:blur(12px);
 }
 
 .brand-mark img{
     display:block;
-    width:56px;
-    height:56px;
-    max-width:56px;
-    max-height:56px;
+    width:50px;
+    height:50px;
+    max-width:50px;
+    max-height:50px;
     object-fit:contain;
+    position:static;
 }
 
     .status{
