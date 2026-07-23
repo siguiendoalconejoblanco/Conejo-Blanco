@@ -1015,52 +1015,7 @@
       2) Los folios de demostración CB-0001 a CB-0006 ya funcionan.
       3) Cuando tengas tu Apps Script, pega su URL en API_URL.
     */
-    const API_URL = "";
-
-    const profiles = {
-      "CB-0001":{
-        number:"01/06", emoji:"🐇", title:"El Conejo Blanco",
-        subtitle:"El patrón de la intención",
-        description:"Tu atención se activa cuando existe una meta clara. Tienes facilidad para detectar el siguiente paso y convertir una intención en movimiento.",
-        strengths:["Claridad de propósito","Capacidad de enfoque","Iniciativa consciente"],
-        advice:"Antes de correr, confirma que el destino sigue siendo tuyo."
-      },
-      "CB-0002":{
-        number:"02/06", emoji:"👧🏻", title:"Alicia",
-        subtitle:"El patrón de la curiosidad",
-        description:"Tu mente encuentra posibilidades donde otros solo ven rutina. Exploras, conectas ideas y aprendes rápido, aunque a veces demasiados caminos compiten entre sí.",
-        strengths:["Curiosidad activa","Aprendizaje veloz","Pensamiento creativo"],
-        advice:"No persigas cada estímulo: elige la pregunta que realmente vale la pena."
-      },
-      "CB-0003":{
-        number:"03/06", emoji:"😺", title:"El Gato Cheshire",
-        subtitle:"El patrón de la perspectiva",
-        description:"Observas lo que otros pasan por alto. Sueles tomar distancia, leer el ambiente y encontrar rutas alternativas cuando la respuesta evidente no funciona.",
-        strengths:["Lectura del contexto","Pensamiento estratégico","Flexibilidad mental"],
-        advice:"Tu perspectiva gana poder cuando también se convierte en decisión."
-      },
-      "CB-0004":{
-        number:"04/06", emoji:"🎩", title:"El Sombrerero Loco",
-        subtitle:"El patrón de las urgencias",
-        description:"Respondes rápido, resuelves y ayudas. Las personas confían en ti porque reaccionas ante lo inesperado, aunque el ruido del ahora puede desplazar tus prioridades.",
-        strengths:["Rapidez de respuesta","Adaptabilidad","Capacidad de resolución"],
-        advice:"Antes de atender lo que el mundo quiere de ti, define qué quieres tú del día."
-      },
-      "CB-0005":{
-        number:"05/06", emoji:"👑", title:"La Reina de Corazones",
-        subtitle:"El patrón del control",
-        description:"Tu atención busca orden, avance y resultados visibles. Eres capaz de dirigir con fuerza, pero bajo presión puedes confundir control con claridad.",
-        strengths:["Determinación","Orientación a resultados","Capacidad de dirección"],
-        advice:"No todo lo que se controla mejora; a veces dirigir también significa escuchar."
-      },
-      "CB-0006":{
-        number:"06/06", emoji:"🤴", title:"El Rey de Corazones",
-        subtitle:"El patrón de la armonía",
-        description:"Tu atención detecta tensiones y busca equilibrio. Tienes facilidad para acompañar, conciliar y proteger al equipo, aunque puedes posponer decisiones difíciles.",
-        strengths:["Empatía","Mediación","Construcción de confianza"],
-        advice:"La armonía verdadera no evita la decisión: la hace posible."
-      }
-    };
+    const API_URL = "https://script.google.com/macros/s/AKfycbw80a7F1AUKC_2DBcF4FaCLtJx0FR5r8Xsqh2vZE7Q_MdLLzNO72B6wXZ5IoKdQu20Cuw/exec";
 
     const $ = (s) => document.querySelector(s);
     const loader = $("#loader");
@@ -1112,14 +1067,27 @@
     }
 
     async function fetchProfile(folio){
-      if (!API_URL) return profiles[folio] || null;
+  const url = `${API_URL}?id=${encodeURIComponent(folio)}`;
 
-      const url = `${API_URL}?folio=${encodeURIComponent(folio)}`;
-      const response = await fetch(url, { method:"GET", cache:"no-store" });
-      if (!response.ok) throw new Error("No fue posible consultar el resultado.");
-      const data = await response.json();
-      return data && data.ok ? data.profile : null;
-    }
+  const response = await fetch(url, {
+    method: "GET",
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    throw new Error("No fue posible consultar el resultado.");
+  }
+
+  const data = await response.json();
+
+  if (!data.ok) {
+    throw new Error(
+      data.message || "No encontramos ese código de registro."
+    );
+  }
+
+  return data.profile;
+}
 
     function showError(message){
       errorBox.textContent = message;
@@ -1132,21 +1100,37 @@
     }
 
     function renderProfile(profile){
-      $("#cardNumber").textContent = profile.number || "—";
-      $("#portrait").textContent = profile.emoji || "🐇";
-      $("#profileTitle").textContent = profile.title || "Tu perfil";
-      $("#backTitle").textContent = profile.title || "Tu perfil";
-      $("#profileSubtitle").textContent = profile.subtitle || "";
-      $("#profileDescription").textContent = profile.description || "";
-      $("#profileAdvice").textContent = profile.advice || "";
-      $("#strengths").innerHTML = (profile.strengths || [])
-        .map(item => `<div class="strength">✦ ${item}</div>`)
-        .join("");
+  const perfil = String(profile.perfil || "")
+    .trim()
+    .toLowerCase();
 
-      card.classList.remove("flipped");
-      searchPanel.style.display = "none";
-      cardStage.style.display = "block";
-    }
+  const perfilesPermitidos = [
+    "conejo",
+    "reina",
+    "alicia",
+    "gato",
+    "sombrerero"
+  ];
+
+  if (!perfilesPermitidos.includes(perfil)) {
+    throw new Error(
+      `El perfil "${perfil}" no tiene una tarjeta configurada.`
+    );
+  }
+
+  $("#cardFrontImage").src = `cards/${perfil}-front.png`;
+  $("#cardBackImage").src = `cards/${perfil}-back.png`;
+
+  $("#cardFrontImage").alt =
+    `Frente de la tarjeta de ${profile.nombre || perfil}`;
+
+  $("#cardBackImage").alt =
+    `Reverso de la tarjeta de ${profile.nombre || perfil}`;
+
+  card.classList.remove("flipped");
+  searchPanel.style.display = "none";
+  cardStage.style.display = "block";
+}
 
     async function reveal(){
       clearError();
