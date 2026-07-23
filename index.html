@@ -516,6 +516,39 @@
       font-weight:700;
     }
 
+    .countdown{
+      margin-top:22px;
+      min-height:1.1em;
+      color:#1457d6;
+      font-family:"Century Gothic","Avenir Next","Trebuchet MS",Arial,sans-serif;
+      font-size:clamp(3.2rem,12vw,5.4rem);
+      line-height:1;
+      font-weight:700;
+      letter-spacing:-.04em;
+      text-shadow:0 4px 20px rgba(20,87,214,.18);
+    }
+
+    .countdown.pulse{
+      animation:countdownPulse .55s ease both;
+    }
+
+    @keyframes countdownPulse{
+      0%{
+        opacity:0;
+        transform:scale(.72);
+        filter:blur(5px);
+      }
+      55%{
+        opacity:1;
+        transform:scale(1.12);
+        filter:blur(0);
+      }
+      100%{
+        opacity:1;
+        transform:scale(1);
+      }
+    }
+
     .reveal-spark{
       position:absolute;
       inset:0;
@@ -1185,7 +1218,14 @@
         <span class="reveal-gradient">Tu forma de atender el mundo</span>
         está a punto de revelarse.
       </h2>
-      <p class="reveal-ready">Prepárate para revelar tu tarjeta...</p>
+    </section>
+
+    <section class="reveal-step" id="revealStep4">
+      <h2 class="reveal-final">
+        Prepárate para revelar tu
+        <span class="reveal-gradient">patrón de atención</span>
+      </h2>
+      <div class="countdown" id="countdown" aria-live="polite">3</div>
     </section>
 
     <div class="reveal-spark" id="revealSpark" aria-hidden="true"></div>
@@ -1358,7 +1398,8 @@
       const steps = [
         $("#revealStep1"),
         $("#revealStep2"),
-        $("#revealStep3")
+        $("#revealStep3"),
+        $("#revealStep4")
       ];
 
       frontFace.style.background = `#000 url("${frontSrc}") center center / contain no-repeat`;
@@ -1396,6 +1437,27 @@
       await showStep(steps[0]);
       await showStep(steps[1]);
       await showStep(steps[2]);
+
+      // Cuarta pantalla con conteo 3, 2, 1.
+      steps.forEach(item => item.classList.remove("active","leaving"));
+      const countdownStep = steps[3];
+      const countdown = $("#countdown");
+
+      void countdownStep.offsetWidth;
+      countdownStep.classList.add("active");
+
+      for (const number of ["3", "2", "1"]) {
+        countdown.textContent = number;
+        countdown.classList.remove("pulse");
+        void countdown.offsetWidth;
+        countdown.classList.add("pulse");
+        await wait(850);
+      }
+
+      countdownStep.classList.remove("active");
+      countdownStep.classList.add("leaving");
+      await wait(280);
+      countdownStep.classList.remove("leaving");
 
       revealSpark.classList.remove("play");
       void revealSpark.offsetWidth;
@@ -1467,7 +1529,7 @@
       $("#participantName").textContent = "";
       $("#revealPanel").classList.remove("show");
       $("#revealSpark").classList.remove("play");
-      ["#revealStep1","#revealStep2","#revealStep3"].forEach(selector => {
+      ["#revealStep1","#revealStep2","#revealStep3","#revealStep4"].forEach(selector => {
         $(selector).classList.remove("active","leaving");
       });
       card.classList.remove("flipped","reveal-in");
