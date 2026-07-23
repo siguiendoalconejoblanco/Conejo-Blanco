@@ -963,42 +963,47 @@
             <div class="helper">También puedes probar con: CB-0001, CB-0002, CB-0003, CB-0004, CB-0005 o CB-0006</div>
           </div>
 
-          <div class="card-stage" id="cardStage">
-            <div class="card" id="profileCard" tabindex="0" role="button" aria-label="Girar tarjeta">
-              <article class="face front">
-                <div class="face-content">
-                  <div class="card-top">
-                    <span>Patrón de atención</span>
-                    <span id="cardNumber">01/06</span>
-                  </div>
-                  <div class="portrait" id="portrait">🐇</div>
-                  <div class="profile-name">
-                    <small>Tu perfil es</small>
-                    <h3 id="profileTitle">El Conejo Blanco</h3>
-                    <p id="profileSubtitle">El patrón de la intención</p>
-                  </div>
-                </div>
-              </article>
+<div class="card-stage" id="cardStage">
 
-              <article class="face back">
-                <div class="face-content">
-                  <div class="card-top">
-                    <span>Siguiendo al Conejo Blanco</span>
-                    <span>Perfil</span>
-                  </div>
-                  <h3 id="backTitle">El Conejo Blanco</h3>
-                  <div class="quote" id="profileDescription"></div>
-                  <div class="strengths" id="strengths"></div>
-                  <div class="profile-name">
-                    <small>Tu Conejo Blanco</small>
-                    <p id="profileAdvice"></p>
-                  </div>
-                </div>
-              </article>
-            </div>
-            <div class="flip-hint">Toca la tarjeta para girarla</div>
-            <button class="primary" id="newSearch" type="button">Consultar otro resguardo</button>
-          </div>
+  <div class="participant-name" id="participantName"></div>
+
+  <div
+    class="card"
+    id="profileCard"
+    tabindex="0"
+    role="button"
+    aria-label="Girar tarjeta"
+  >
+
+    <article class="face front">
+      <img
+        id="cardFrontImage"
+        class="card-image"
+        src=""
+        alt="Frente de la tarjeta"
+      >
+    </article>
+
+    <article class="face back">
+      <img
+        id="cardBackImage"
+        class="card-image"
+        src=""
+        alt="Reverso de la tarjeta"
+      >
+    </article>
+
+  </div>
+
+  <div class="flip-hint">
+    Toca la tarjeta para girarla
+  </div>
+
+  <button class="primary" id="newSearch" type="button">
+    Consultar otro registro
+  </button>
+
+</div>
         </div>
       </section>
     </main>
