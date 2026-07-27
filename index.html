@@ -2884,6 +2884,32 @@ body.download-page-open{overflow:hidden;}
   }
 }
 
+
+.mobile-flip-message{
+  display:none;
+}
+
+@media (max-width:900px){
+  body.collection-view .mobile-flip-message{
+    display:block;
+    width:min(100%,380px);
+    margin:12px auto 4px;
+    padding:0 10px;
+    color:#0b2a78;
+    font-family:"Century Gothic","Avenir Next","Trebuchet MS",Arial,sans-serif;
+    font-size:.82rem;
+    font-weight:700;
+    line-height:1.35;
+    text-align:center;
+  }
+}
+
+@media (min-width:901px){
+  .mobile-flip-message{
+    display:none !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3072,6 +3098,7 @@ body.download-page-open{overflow:hidden;}
 <div aria-label="Carrusel de patrones de atención" class="carousel-shell" id="carouselShell">
 <div class="carousel-track" id="carouselTrack"></div>
 </div>
+<div class="mobile-flip-message">Toca la tarjeta para girarla y descubrir lo que cada patrón tiene para ti.</div>
 <div class="carousel-caption" id="carouselCaption"></div>
 <div class="carousel-controls" id="carouselControls">
 <button aria-label="Tarjeta anterior" class="carousel-arrow" id="carouselPrev" type="button">‹</button>
@@ -3493,27 +3520,22 @@ body.download-page-open{overflow:hidden;}
 
     const mobileCardDownload = $("#mobileCardDownload");
     
-mobileCardDownload?.addEventListener("click", ()=>{
-  if(typeof downloadCurrentCard==="function"){
-    downloadCurrentCard();
-  }else if(typeof downloadCurrentImage==="function"){
-    downloadCurrentImage();
-  }else{
-    const active=document.querySelector(".carousel-card.is-active .front");
-    if(active){
-      const bg=getComputedStyle(active).backgroundImage;
-      const m=/url\(["']?(.*?)["']?\)/.exec(bg);
-      if(m){
-        const a=document.createElement("a");
-        a.href=m[1];
-        a.download="tarjeta.png";
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
+mobileCardDownload?.addEventListener("click", async ()=>{
+      const profile = getActiveProfile();
+      const activeCard = document.querySelector(".carousel-card.is-active");
+      const isBackVisible = activeCard?.classList.contains("flipped");
+      const side = isBackVisible ? "back" : "front";
+      const filenameSide = isBackVisible ? "reverso" : "frente";
+
+      await downloadImage(
+        `${BASE_CARDS}${profile.id}-${side}.png`,
+        `${profile.id}-${filenameSide}.png`
+      );
+
+      if(typeof recordDownload === "function"){
+        recordDownload(profile.id);
       }
-    }
-  }
-});
+    });
 
 
     async function shareActiveCard(){
