@@ -379,6 +379,283 @@
       line-height:1.45;
     }
 
+
+    .survey-intro h2{
+      margin-bottom:10px;
+      font-size:clamp(1.75rem,5vw,2.35rem);
+    }
+
+    .survey-intro .volume{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:14px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(20,87,214,.18);
+      background:rgba(255,255,255,.58);
+      color:#1457d6;
+      font-size:.78rem;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .survey-progress{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin:20px 0 24px;
+    }
+
+    .survey-progress-track{
+      flex:1;
+      height:8px;
+      overflow:hidden;
+      border-radius:999px;
+      background:rgba(20,87,214,.12);
+    }
+
+    .survey-progress-bar{
+      width:0;
+      height:100%;
+      border-radius:inherit;
+      background:linear-gradient(90deg,#0a2a78,#1457d6,#2f8de9);
+      transition:width .35s ease;
+    }
+
+    .survey-progress-text{
+      min-width:112px;
+      color:#49679f;
+      font-size:.78rem;
+      font-weight:800;
+      text-align:right;
+    }
+
+    .survey-question{
+      display:none;
+      animation:surveyIn .35s ease both;
+    }
+
+    .survey-question.active{display:block}
+
+    @keyframes surveyIn{
+      from{opacity:0;transform:translateY(12px);filter:blur(3px)}
+      to{opacity:1;transform:none;filter:none}
+    }
+
+    .survey-question h3{
+      margin:0 0 18px;
+      color:#0b2a78;
+      font-size:clamp(1.25rem,4vw,1.6rem);
+      line-height:1.28;
+      letter-spacing:-.025em;
+    }
+
+    .survey-question textarea,
+    .survey-question input[type="text"]{
+      width:100%;
+      border:1px solid rgba(20,87,214,.20);
+      background:rgba(255,255,255,.78);
+      color:#0a2a78;
+      padding:15px 16px;
+      border-radius:16px;
+      outline:none;
+      resize:vertical;
+      min-height:54px;
+      box-shadow:inset 0 1px 12px rgba(55,99,172,.08);
+    }
+
+    .survey-question textarea{min-height:132px}
+
+    .survey-question textarea:focus,
+    .survey-question input[type="text"]:focus{
+      border-color:rgba(20,87,214,.6);
+      box-shadow:0 0 0 4px rgba(20,87,214,.14);
+    }
+
+    .rating-row,
+    .choice-grid,
+    .scale-row{
+      display:grid;
+      gap:10px;
+    }
+
+    .rating-row{
+      grid-template-columns:repeat(5,1fr);
+    }
+
+    .rating-option,
+    .choice-option,
+    .scale-option{
+      position:relative;
+    }
+
+    .rating-option input,
+    .choice-option input,
+    .scale-option input{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .rating-option label,
+    .choice-option label,
+    .scale-option label{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:52px;
+      margin:0;
+      padding:11px 10px;
+      border:1px solid rgba(20,87,214,.18);
+      border-radius:14px;
+      background:rgba(255,255,255,.64);
+      color:#49679f;
+      cursor:pointer;
+      transition:.2s ease;
+      text-align:center;
+    }
+
+    .rating-option label{
+      font-size:1.7rem;
+      line-height:1;
+      color:#a8b7d3;
+      text-shadow:none;
+    }
+
+    .rating-option label.is-filled,
+    .rating-option label.is-hovered{
+      color:#f2b705;
+      border-color:rgba(242,183,5,.55);
+      background:linear-gradient(180deg,rgba(255,249,218,.98),rgba(255,237,158,.88));
+      box-shadow:0 10px 28px rgba(194,139,0,.18),0 0 0 3px rgba(242,183,5,.10);
+      transform:translateY(-2px) scale(1.03);
+      text-shadow:0 2px 8px rgba(168,112,0,.18);
+    }
+
+    .rating-feedback{
+      min-height:24px;
+      margin-top:12px;
+      color:#0b2a78;
+      font-size:.9rem;
+      font-weight:900;
+      text-align:center;
+    }
+
+    .choice-option label{
+      justify-content:flex-start;
+      padding-left:16px;
+      font-size:.9rem;
+      font-weight:800;
+    }
+
+    .scale-row{
+      grid-template-columns:repeat(10,1fr);
+    }
+
+    .scale-option label{
+      min-height:44px;
+      padding:8px 4px;
+      font-size:.82rem;
+      font-weight:900;
+    }
+
+    .choice-option input:checked + label,
+    .scale-option input:checked + label{
+      border-color:#1457d6;
+      color:#0b2a78;
+      background:rgba(196,220,255,.92);
+      box-shadow:0 8px 24px rgba(20,87,214,.16),0 0 0 3px rgba(20,87,214,.10);
+      transform:translateY(-1px);
+    }
+
+    .survey-actions{
+      display:flex;
+      gap:10px;
+      margin-top:22px;
+    }
+
+    .survey-actions .primary{margin-top:0}
+
+    .secondary{
+      min-width:110px;
+      border:1px solid rgba(20,87,214,.22);
+      color:#0b2a78;
+      font-weight:900;
+      padding:14px 18px;
+      border-radius:16px;
+      background:rgba(255,255,255,.68);
+    }
+
+    .unlocking{
+      display:none;
+      padding:32px 10px;
+      text-align:center;
+    }
+
+    .unlocking.show{display:block}
+
+    .unlock-icon{
+      width:78px;
+      height:78px;
+      margin:0 auto 18px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:rgba(255,255,255,.78);
+      box-shadow:0 18px 45px rgba(20,87,214,.18);
+      font-size:2.2rem;
+      animation:unlockPulse 1.35s ease-in-out infinite;
+    }
+
+    @keyframes unlockPulse{
+      50%{transform:scale(1.08);box-shadow:0 18px 55px rgba(20,87,214,.30)}
+    }
+
+    .download-panel{
+      display:none;
+      margin-top:20px;
+      padding:18px;
+      border:1px solid rgba(20,87,214,.16);
+      border-radius:20px;
+      background:rgba(255,255,255,.60);
+      text-align:center;
+    }
+
+    .download-panel.show{display:block}
+
+    .download-panel h3{
+      margin:0 0 6px;
+      font-size:1.15rem;
+      color:#0b2a78;
+    }
+
+    .download-panel p{
+      margin:0 0 12px;
+      color:#49679f;
+      font-size:.84rem;
+      line-height:1.45;
+    }
+
+    .download-panel .primary{margin-top:0}
+
+    .download-status{
+      min-height:20px;
+      margin-top:9px;
+      color:#1457d6;
+      font-size:.78rem;
+      font-weight:800;
+    }
+
+    @media(max-width:600px){
+      .scale-row{grid-template-columns:repeat(5,1fr)}
+      .rating-option label{font-size:1.4rem}
+      .survey-actions{flex-direction:column-reverse}
+      .secondary{width:100%}
+    }
+
+
     .card-stage{
       display:none;
       perspective:1500px;
@@ -1369,7 +1646,7 @@
           <span class="gradient-text">revela quién eres.</span>
         </h1>
         <p class="lead">
-          Ingresa tu número de registro, cruza la madriguera y descubre el patrón de atención que guía tus decisiones.
+          Comparte cómo viviste el Volumen I y desbloquea la colección completa de los cinco Patrones de Atención.
         </p>
 
              </section>
@@ -1377,17 +1654,104 @@
       <section>
         <div class="glass panel">
           <div id="searchPanel">
-            <h2>Descubre tu patrón</h2>
-            <p>Escribe el número de registro que recibiste para revelar tu resultado.</p>
-
-            <label for="folio">Número de registro</label>
-            <div class="input-wrap">
-              <span>⌁</span>
-              <input id="folio" type="text" inputmode="text" autocomplete="off" placeholder="Ej. CB-0001" maxlength="30" />
+            <div class="survey-intro" id="surveyIntro">
+              <div class="volume">Volumen I · Patrones de Atención</div>
+              <h2>El viaje continúa…</h2>
+              <p>
+                Antes de desbloquear la colección completa, queremos conocer cómo viviste esta experiencia.
+                Tus respuestas nos ayudarán a construir los próximos capítulos.
+              </p>
+              <button class="primary" id="startSurvey" type="button">Comenzar y desbloquear la colección</button>
+              <div class="helper">Son 7 preguntas · Tiempo estimado: 1 minuto</div>
             </div>
-            <button class="primary" id="revealBtn" type="button">Revelar mi tarjeta</button>
-            <div class="error" id="error" role="alert"></div>
-            <div class="helper">Ingresa exactamente el código de registro que recibiste.</div>
+
+            <form id="surveyForm" novalidate style="display:none">
+              <div class="survey-progress">
+                <div class="survey-progress-track">
+                  <div class="survey-progress-bar" id="surveyProgressBar"></div>
+                </div>
+                <div class="survey-progress-text" id="surveyProgressText">1 de 7</div>
+              </div>
+
+              <section class="survey-question active" data-step="0">
+                <h3>¿Cuál es tu nombre?</h3>
+                <input id="surveyName" name="nombre" type="text" autocomplete="name" maxlength="120" placeholder="Escribe tu nombre completo" required />
+              </section>
+
+              <section class="survey-question" data-step="1">
+                <h3>¿Cómo calificarías la experiencia en general?</h3>
+                <div class="rating-row" aria-label="Calificación de la experiencia">
+                  <div class="rating-option"><input id="exp1" type="radio" name="experiencia" value="1" required><label for="exp1" aria-label="1 de 5">★</label></div>
+                  <div class="rating-option"><input id="exp2" type="radio" name="experiencia" value="2" required><label for="exp2" aria-label="2 de 5">★</label></div>
+                  <div class="rating-option"><input id="exp3" type="radio" name="experiencia" value="3" required><label for="exp3" aria-label="3 de 5">★</label></div>
+                  <div class="rating-option"><input id="exp4" type="radio" name="experiencia" value="4" required><label for="exp4" aria-label="4 de 5">★</label></div>
+                  <div class="rating-option"><input id="exp5" type="radio" name="experiencia" value="5" required><label for="exp5" aria-label="5 de 5">★</label></div>
+                </div>
+                <div class="rating-feedback" data-rating-feedback="experiencia">Selecciona de 1 a 5 estrellas</div>
+              </section>
+
+              <section class="survey-question" data-step="2">
+                <h3>¿Qué tan útiles fueron los recursos visuales para mantener tu atención?</h3>
+                <div class="rating-row" aria-label="Utilidad de los recursos visuales">
+                  <div class="rating-option"><input id="visual1" type="radio" name="recursosVisuales" value="1" required><label for="visual1" aria-label="1 de 5">★</label></div>
+                  <div class="rating-option"><input id="visual2" type="radio" name="recursosVisuales" value="2" required><label for="visual2" aria-label="2 de 5">★</label></div>
+                  <div class="rating-option"><input id="visual3" type="radio" name="recursosVisuales" value="3" required><label for="visual3" aria-label="3 de 5">★</label></div>
+                  <div class="rating-option"><input id="visual4" type="radio" name="recursosVisuales" value="4" required><label for="visual4" aria-label="4 de 5">★</label></div>
+                  <div class="rating-option"><input id="visual5" type="radio" name="recursosVisuales" value="5" required><label for="visual5" aria-label="5 de 5">★</label></div>
+                </div>
+                <div class="rating-feedback" data-rating-feedback="recursosVisuales">Selecciona de 1 a 5 estrellas</div>
+              </section>
+
+              <section class="survey-question" data-step="3">
+                <h3>¿Consideras que logramos el objetivo de hacerte reflexionar sobre el valor de tu atención?</h3>
+                <div class="choice-grid">
+                  <div class="choice-option"><input id="objetivo0" type="radio" name="objetivo" value="Totalmente" required><label for="objetivo0">Totalmente</label></div>
+                  <div class="choice-option"><input id="objetivo1" type="radio" name="objetivo" value="En gran medida" required><label for="objetivo1">En gran medida</label></div>
+                  <div class="choice-option"><input id="objetivo2" type="radio" name="objetivo" value="Parcialmente" required><label for="objetivo2">Parcialmente</label></div>
+                  <div class="choice-option"><input id="objetivo3" type="radio" name="objetivo" value="Muy poco" required><label for="objetivo3">Muy poco</label></div>
+                  <div class="choice-option"><input id="objetivo4" type="radio" name="objetivo" value="No" required><label for="objetivo4">No</label></div>
+                </div>
+              </section>
+
+              <section class="survey-question" data-step="4">
+                <h3>¿Qué tan aplicable ves este aprendizaje en tu vida personal y profesional?</h3>
+                <div class="scale-row" aria-label="Aplicabilidad del 1 al 10">
+                  <div class="scale-option"><input id="aplica1" type="radio" name="aplicacion" value="1" required><label for="aplica1">1</label></div>
+                  <div class="scale-option"><input id="aplica2" type="radio" name="aplicacion" value="2" required><label for="aplica2">2</label></div>
+                  <div class="scale-option"><input id="aplica3" type="radio" name="aplicacion" value="3" required><label for="aplica3">3</label></div>
+                  <div class="scale-option"><input id="aplica4" type="radio" name="aplicacion" value="4" required><label for="aplica4">4</label></div>
+                  <div class="scale-option"><input id="aplica5" type="radio" name="aplicacion" value="5" required><label for="aplica5">5</label></div>
+                  <div class="scale-option"><input id="aplica6" type="radio" name="aplicacion" value="6" required><label for="aplica6">6</label></div>
+                  <div class="scale-option"><input id="aplica7" type="radio" name="aplicacion" value="7" required><label for="aplica7">7</label></div>
+                  <div class="scale-option"><input id="aplica8" type="radio" name="aplicacion" value="8" required><label for="aplica8">8</label></div>
+                  <div class="scale-option"><input id="aplica9" type="radio" name="aplicacion" value="9" required><label for="aplica9">9</label></div>
+                  <div class="scale-option"><input id="aplica10" type="radio" name="aplicacion" value="10" required><label for="aplica10">10</label></div>
+                </div>
+                <div class="helper">1 = Poco aplicable · 10 = Totalmente aplicable</div>
+              </section>
+
+              <section class="survey-question" data-step="5">
+                <h3>¿Qué fue lo que más capturó tu atención?</h3>
+                <textarea id="capturoAtencion" name="capturoAtencion" maxlength="1000" placeholder="Cuéntanos el momento, idea o dinámica que más recuerdas…" required></textarea>
+              </section>
+
+              <section class="survey-question" data-step="6">
+                <h3>¿Qué mejorarías para el siguiente volumen?</h3>
+                <textarea id="mejora" name="mejora" maxlength="1000" placeholder="Déjanos una sugerencia para continuar construyendo esta historia…" required></textarea>
+              </section>
+
+              <div class="survey-actions">
+                <button class="secondary" id="surveyBack" type="button">Anterior</button>
+                <button class="primary" id="surveyNext" type="button">Siguiente</button>
+              </div>
+              <div class="error" id="error" role="alert"></div>
+            </form>
+
+            <div class="unlocking" id="unlocking">
+              <div class="unlock-icon">🔓</div>
+              <h2>¡Colección desbloqueada!</h2>
+              <p>Preparando los cinco Patrones de Atención…</p>
+            </div>
           </div>
 
 <div class="card-stage" id="cardStage">
@@ -1445,8 +1809,15 @@
     Desliza para explorar los cinco patrones. Toca la tarjeta central para girarla.
   </div>
 
-  <button class="primary" id="newSearch" type="button">
-    Consultar otro registro
+  <div class="download-panel" id="downloadPanel">
+    <h3>Conserva tu tarjeta oficial</h3>
+    <p>Descarga la tarjeta que está al frente en su archivo original de alta resolución.</p>
+    <button class="primary" id="downloadCard" type="button">Descargar tarjeta en alta calidad</button>
+    <div class="download-status" id="downloadStatus" aria-live="polite"></div>
+  </div>
+
+  <button class="secondary" id="newSearch" type="button" style="width:100%;margin-top:12px">
+    Responder otra encuesta
   </button>
 
 </div>
@@ -1461,17 +1832,16 @@
 
   <script>
     /*
-      LISTO PARA USAR:
-      1) Reemplaza tu index.html actual por este archivo.
-      2) Los folios de demostración CB-0001 a CB-0006 ya funcionan.
-      3) Cuando tengas tu Apps Script, pega su URL en API_URL.
+      IMPORTANTE:
+      1) Conserva aquí la misma URL de tu Apps Script.
+      2) Sustituye el código de Apps Script por el archivo Code.gs incluido.
+      3) La pestaña nueva debe llamarse exactamente: Encuesta
     */
     const API_URL = "https://script.google.com/macros/s/AKfycbw80a7F1AUKC_2DBcF4FaCLtJx0FR5r8Xsqh2vZE7Q_MdLLzNO72B6wXZ5IoKdQu20Cuw/exec";
+    const BASE_CARDS = "https://siguiendoalconejoblanco.github.io/Conejo-Blanco/cards/";
 
     const $ = (s) => document.querySelector(s);
     const loader = $("#loader");
-    const revealBtn = $("#revealBtn");
-    const folioInput = $("#folio");
     const errorBox = $("#error");
     const cardStage = $("#cardStage");
     const searchPanel = $("#searchPanel");
@@ -1480,69 +1850,36 @@
     const carouselDots = $("#carouselDots");
     const carouselCaption = $("#carouselCaption");
     const carouselControls = $("#carouselControls");
-
     const phraseTransition = $("#phraseTransition");
+    const surveyIntro = $("#surveyIntro");
+    const surveyForm = $("#surveyForm");
+    const surveyQuestions = [...document.querySelectorAll(".survey-question")];
+    const surveyProgressBar = $("#surveyProgressBar");
+    const surveyProgressText = $("#surveyProgressText");
+    const surveyBack = $("#surveyBack");
+    const surveyNext = $("#surveyNext");
+    const unlocking = $("#unlocking");
+    const downloadPanel = $("#downloadPanel");
+    const downloadStatus = $("#downloadStatus");
+
+    let surveyStep = 0;
+    let currentProfile = null;
+    let surveyRow = null;
 
     window.addEventListener("load", () => {
       setTimeout(() => {
-        // El reloj continúa visible; el resplandor nace encima de él.
         phraseTransition.classList.add("active","bloom");
-
-        // Cuando el resplandor ya cubrió la pantalla, aparece la frase.
+        setTimeout(() => phraseTransition.classList.add("reveal"), 2100);
         setTimeout(() => {
-          phraseTransition.classList.add("reveal");
-        }, 2100);
-
-        // Primero desaparece únicamente la frase.
-        setTimeout(() => {
-          // Conserva "reveal" activo para evitar que la frase salte a opacity:0.
-          // La salida animada toma el control suavemente.
           phraseTransition.classList.add("phrase-out");
-
-          // Se deja una pausa clara después de desaparecer la frase.
-          // Luego se van juntos el reloj y el resplandor.
-          // El reloj y el resplandor comienzan a desaparecer
-          // exactamente al mismo tiempo que la frase.
           loader.classList.add("hide");
           phraseTransition.classList.add("finish");
-
           setTimeout(() => {
-            phraseTransition.classList.remove(
-              "active","bloom","phrase-out","finish"
-            );
+            phraseTransition.classList.remove("active","bloom","phrase-out","finish");
           }, 1250);
-
         }, 5400);
-
       }, 1500);
     });
-
-    function normalize(value){
-      return value.trim().toUpperCase().replace(/\s+/g,"");
-    }
-
-    async function fetchProfile(folio){
-  const url = `${API_URL}?id=${encodeURIComponent(folio)}`;
-
-  const response = await fetch(url, {
-    method: "GET",
-    cache: "no-store"
-  });
-
-  if (!response.ok) {
-    throw new Error("No fue posible consultar el resultado.");
-  }
-
-  const data = await response.json();
-
-  if (!data.ok) {
-    throw new Error(
-      data.message || "No encontramos ese código de registro."
-    );
-  }
-
-  return data.profile;
-}
 
     function showError(message){
       errorBox.textContent = message;
@@ -1553,6 +1890,209 @@
       errorBox.textContent = "";
       errorBox.style.display = "none";
     }
+
+    function updateSurvey(){
+      surveyQuestions.forEach((question,index) => {
+        question.classList.toggle("active", index === surveyStep);
+      });
+      const progress = ((surveyStep + 1) / surveyQuestions.length) * 100;
+      surveyProgressBar.style.width = `${progress}%`;
+      surveyProgressText.textContent = `Pregunta ${surveyStep + 1} de ${surveyQuestions.length}`;
+      surveyBack.style.visibility = surveyStep === 0 ? "hidden" : "visible";
+      surveyNext.textContent =
+        surveyStep === surveyQuestions.length - 1
+          ? "Desbloquear colección"
+          : "Siguiente";
+      clearError();
+    }
+
+    const ratingLabels = {
+      1:"Muy baja",
+      2:"Regular",
+      3:"Buena",
+      4:"Muy buena",
+      5:"Excelente"
+    };
+
+    function paintRating(groupName, value, preview = false){
+      const inputs = [...document.querySelectorAll(`input[name="${groupName}"]`)];
+      inputs.forEach((input,index) => {
+        const label = input.nextElementSibling;
+        label.classList.toggle(preview ? "is-hovered" : "is-filled", index < value);
+        if(preview) label.classList.remove("is-filled");
+      });
+
+      const feedback = document.querySelector(`[data-rating-feedback="${groupName}"]`);
+      if(feedback){
+        feedback.textContent = value
+          ? `${value} de 5 estrellas · ${ratingLabels[value]}`
+          : "Selecciona de 1 a 5 estrellas";
+      }
+    }
+
+    function restoreRating(groupName){
+      const inputs = [...document.querySelectorAll(`input[name="${groupName}"]`)];
+      const selected = inputs.find(input => input.checked);
+      inputs.forEach(input => input.nextElementSibling.classList.remove("is-hovered","is-filled"));
+      paintRating(groupName, selected ? Number(selected.value) : 0, false);
+    }
+
+    ["experiencia","recursosVisuales"].forEach(groupName => {
+      const inputs = [...document.querySelectorAll(`input[name="${groupName}"]`)];
+      inputs.forEach(input => {
+        const label = input.nextElementSibling;
+        label.addEventListener("mouseenter", () => paintRating(groupName, Number(input.value), true));
+        label.addEventListener("focus", () => paintRating(groupName, Number(input.value), true));
+        label.addEventListener("mouseleave", () => restoreRating(groupName));
+        label.addEventListener("blur", () => restoreRating(groupName));
+        input.addEventListener("change", () => restoreRating(groupName));
+      });
+      restoreRating(groupName);
+    });
+
+    function validateCurrentQuestion(){
+      const question = surveyQuestions[surveyStep];
+      const requiredFields = [...question.querySelectorAll("[required]")];
+
+      for(const field of requiredFields){
+        if(field.type === "radio"){
+          const selected = question.querySelector(`input[name="${field.name}"]:checked`);
+          if(!selected){
+            showError("Selecciona una respuesta para continuar.");
+            return false;
+          }
+          break;
+        }
+
+        if(!String(field.value || "").trim()){
+          showError("Completa esta respuesta para continuar.");
+          field.focus();
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function getSurveyData(){
+      const form = new FormData(surveyForm);
+      return {
+        action:"survey",
+        nombre:String(form.get("nombre") || "").trim(),
+        experiencia:String(form.get("experiencia") || ""),
+        recursosVisuales:String(form.get("recursosVisuales") || ""),
+        objetivo:String(form.get("objetivo") || ""),
+        aplicacion:String(form.get("aplicacion") || ""),
+        capturoAtencion:String(form.get("capturoAtencion") || "").trim(),
+        mejora:String(form.get("mejora") || "").trim()
+      };
+    }
+
+    async function submitSurvey(){
+      const payload = getSurveyData();
+
+      surveyNext.disabled = true;
+      surveyBack.disabled = true;
+      surveyNext.textContent = "Desbloqueando…";
+      surveyForm.style.display = "none";
+      unlocking.classList.add("show");
+      clearError();
+
+      /*
+        La colección NO depende de que Apps Script responda.
+        Primero intentamos guardar la encuesta y recuperar el patrón.
+        Si la implementación está tardando, no fue actualizada o el nombre
+        no coincide, la experiencia continúa y se muestran las cinco tarjetas.
+      */
+      let profileToReveal = {
+        nombre: payload.nombre || "bienvenido",
+        patron: "",
+        perfil: "conejo"
+      };
+
+      try{
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 12000);
+
+        const response = await fetch(API_URL, {
+          method:"POST",
+          headers:{"Content-Type":"text/plain;charset=utf-8"},
+          body:JSON.stringify(payload),
+          cache:"no-store",
+          signal:controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if(response.ok){
+          const data = await response.json();
+
+          if(data && data.ok){
+            surveyRow = data.surveyRow || null;
+
+            if(data.profile && data.profile.perfil){
+              profileToReveal = data.profile;
+            }
+          }else{
+            console.warn("La encuesta no fue confirmada por Apps Script:", data?.message || data);
+          }
+        }else{
+          console.warn("Apps Script respondió con estado:", response.status);
+        }
+      }catch(error){
+        console.warn("La colección continuará aunque no se haya confirmado el guardado:", error);
+      }
+
+      currentProfile = profileToReveal;
+
+      try{
+        await new Promise(resolve => setTimeout(resolve, 900));
+        unlocking.classList.remove("show");
+        await renderProfile(currentProfile);
+      }catch(error){
+        unlocking.classList.remove("show");
+        surveyForm.style.display = "block";
+        showError("No pudimos abrir la colección. Recarga la página e inténtalo nuevamente.");
+        console.error(error);
+      }finally{
+        surveyNext.disabled = false;
+        surveyBack.disabled = false;
+        updateSurvey();
+      }
+    }
+
+    $("#startSurvey").addEventListener("click", () => {
+      surveyIntro.style.display = "none";
+      surveyForm.style.display = "block";
+      surveyStep = 0;
+      updateSurvey();
+      $("#surveyName").focus();
+    });
+
+    surveyNext.addEventListener("click", async () => {
+      if(!validateCurrentQuestion()) return;
+      if(surveyStep < surveyQuestions.length - 1){
+        surveyStep++;
+        updateSurvey();
+        const firstField = surveyQuestions[surveyStep].querySelector("input,textarea");
+        firstField?.focus();
+      }else{
+        await submitSurvey();
+      }
+    });
+
+    surveyBack.addEventListener("click", () => {
+      if(surveyStep > 0){
+        surveyStep--;
+        updateSurvey();
+      }
+    });
+
+    surveyForm.addEventListener("keydown", event => {
+      if(event.key === "Enter" && event.target.tagName !== "TEXTAREA"){
+        event.preventDefault();
+        surveyNext.click();
+      }
+    });
 
     const CAROUSEL_PROFILES = [
       { id:"conejo", nombre:"Conejo Blanco" },
@@ -1576,45 +2116,36 @@
 
     function updateCarousel(){
       const total = carouselCards.length;
-
-      carouselCards.forEach((cardElement, index) => {
-        const distance = circularDistance(index, carouselIndex, total);
+      carouselCards.forEach((cardElement,index) => {
+        const distance = circularDistance(index,carouselIndex,total);
         cardElement.classList.remove(
           "is-active","is-prev","is-next",
           "is-far-prev","is-far-next","is-hidden"
         );
-
         if(distance === 0) cardElement.classList.add("is-active");
         else if(distance === -1) cardElement.classList.add("is-prev");
         else if(distance === 1) cardElement.classList.add("is-next");
         else if(distance === -2) cardElement.classList.add("is-far-prev");
         else if(distance === 2) cardElement.classList.add("is-far-next");
         else cardElement.classList.add("is-hidden");
-
-        if(distance !== 0){
-          cardElement.classList.remove("flipped");
-        }
+        if(distance !== 0) cardElement.classList.remove("flipped");
       });
 
       [...carouselDots.children].forEach((dot,index) => {
         dot.classList.toggle("active", index === carouselIndex);
       });
 
-      carouselCaption.textContent =
-        CAROUSEL_PROFILES[carouselIndex]?.nombre || "";
+      carouselCaption.textContent = CAROUSEL_PROFILES[carouselIndex]?.nombre || "";
+      downloadStatus.textContent = "";
     }
 
     function moveCarousel(direction){
       if(!carouselCards.length) return;
-      carouselIndex =
-        (carouselIndex + direction + carouselCards.length) % carouselCards.length;
+      carouselIndex = (carouselIndex + direction + carouselCards.length) % carouselCards.length;
       updateCarousel();
     }
 
     function buildCarousel(initialProfile){
-      const BASE_CARDS =
-        "https://siguiendoalconejoblanco.github.io/Conejo-Blanco/cards/";
-
       carouselTrack.innerHTML = "";
       carouselDots.innerHTML = "";
       carouselCards = [];
@@ -1625,42 +2156,23 @@
         cardElement.dataset.profile = item.id;
         cardElement.tabIndex = 0;
         cardElement.setAttribute("role","button");
-        cardElement.setAttribute(
-          "aria-label",
-          `${item.nombre}. Toca para colocar al frente o girar.`
-        );
-
+        cardElement.setAttribute("aria-label",`${item.nombre}. Toca para colocar al frente o girar.`);
         cardElement.innerHTML = `
           <div class="card-inner">
-            <article
-              class="face front"
-              style='background:#000 url("${BASE_CARDS}${item.id}-front.png") center center / contain no-repeat;'
-            ></article>
-            <article
-              class="face back"
-              style='background:#000 url("${BASE_CARDS}${item.id}-back.png") center center / contain no-repeat;'
-            ></article>
-          </div>
-        `;
+            <article class="face front" style='background:#000 url("${BASE_CARDS}${item.id}-front.png") center / contain no-repeat;'></article>
+            <article class="face back" style='background:#000 url("${BASE_CARDS}${item.id}-back.png") center / contain no-repeat;'></article>
+          </div>`;
 
         cardElement.addEventListener("click", () => {
-          if(index === carouselIndex){
-            cardElement.classList.toggle("flipped");
-          }else{
-            carouselIndex = index;
-            updateCarousel();
-          }
+          if(index === carouselIndex) cardElement.classList.toggle("flipped");
+          else { carouselIndex = index; updateCarousel(); }
         });
 
         cardElement.addEventListener("keydown", event => {
           if(event.key === "Enter" || event.key === " "){
             event.preventDefault();
-            if(index === carouselIndex){
-              cardElement.classList.toggle("flipped");
-            }else{
-              carouselIndex = index;
-              updateCarousel();
-            }
+            if(index === carouselIndex) cardElement.classList.toggle("flipped");
+            else { carouselIndex = index; updateCarousel(); }
           }
         });
 
@@ -1670,7 +2182,7 @@
         const dot = document.createElement("button");
         dot.type = "button";
         dot.className = "carousel-dot";
-        dot.setAttribute("aria-label", `Ver ${item.nombre}`);
+        dot.setAttribute("aria-label",`Ver ${item.nombre}`);
         dot.addEventListener("click", () => {
           carouselIndex = index;
           updateCarousel();
@@ -1678,61 +2190,43 @@
         carouselDots.appendChild(dot);
       });
 
-      const initialIndex = CAROUSEL_PROFILES.findIndex(
-        item => item.id === initialProfile
-      );
+      const initialIndex = CAROUSEL_PROFILES.findIndex(item => item.id === initialProfile);
       carouselIndex = initialIndex >= 0 ? initialIndex : 0;
       updateCarousel();
     }
 
     async function renderProfile(profile){
-      const perfil = String(profile.perfil || "")
-        .trim()
-        .toLowerCase();
-
+      const perfil = String(profile.perfil || "").trim().toLowerCase();
       const perfilesPermitidos = CAROUSEL_PROFILES.map(item => item.id);
-
-      if (!perfilesPermitidos.includes(perfil)) {
+      if(!perfilesPermitidos.includes(perfil)){
         throw new Error(`El perfil "${perfil}" no tiene una tarjeta configurada.`);
       }
 
       const revealPanel = $("#revealPanel");
       const revealSpark = $("#revealSpark");
-      const steps = [
-        $("#revealStep1"),
-        $("#revealStep2"),
-        $("#revealStep3"),
-        $("#revealStep4")
-      ];
-
-      $("#revealGreeting").textContent =
-        `👋 Hola, ${profile.nombre || "bienvenido"}`;
-
-      const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+      const steps = [$("#revealStep1"),$("#revealStep2"),$("#revealStep3"),$("#revealStep4")];
+      $("#revealGreeting").textContent = `👋 Hola, ${profile.nombre || "bienvenido"}`;
+      const wait = ms => new Promise(resolve => setTimeout(resolve,ms));
 
       async function showStep(step){
         steps.forEach(item => item.classList.remove("active","leaving"));
         void step.offsetWidth;
         step.classList.add("active");
-
         await wait(3500);
-
         step.classList.remove("active");
         step.classList.add("leaving");
-
         await wait(450);
         step.classList.remove("leaving");
       }
 
       searchPanel.style.display = "none";
       cardStage.style.display = "block";
-
       carouselShell.classList.remove("show");
       carouselControls.style.display = "none";
       carouselCaption.style.display = "none";
       $(".flip-hint").style.display = "none";
       $("#newSearch").style.display = "none";
-
+      downloadPanel.classList.remove("show");
       revealPanel.classList.add("show");
 
       await showStep(steps[0]);
@@ -1742,11 +2236,10 @@
       steps.forEach(item => item.classList.remove("active","leaving"));
       const countdownStep = steps[3];
       const countdown = $("#countdown");
-
       void countdownStep.offsetWidth;
       countdownStep.classList.add("active");
 
-      for (const number of ["3", "2", "1"]) {
+      for(const number of ["3","2","1"]){
         countdown.textContent = number;
         countdown.classList.remove("pulse");
         void countdown.offsetWidth;
@@ -1762,17 +2255,16 @@
       revealSpark.classList.remove("play");
       void revealSpark.offsetWidth;
       revealSpark.classList.add("play");
-
       await wait(360);
 
       buildCarousel(perfil);
-
       revealPanel.classList.remove("show");
       carouselShell.classList.add("show");
       carouselControls.style.display = "flex";
       carouselCaption.style.display = "block";
       $(".flip-hint").style.display = "";
       $("#newSearch").style.display = "";
+      downloadPanel.classList.add("show");
 
       const activeCard = carouselCards[carouselIndex];
       if(activeCard){
@@ -1780,45 +2272,8 @@
         await wait(950);
         activeCard.classList.remove("reveal-in");
       }
-
       revealSpark.classList.remove("play");
     }
-
-    async function reveal(){
-      clearError();
-      const folio = normalize(folioInput.value);
-
-      if(!folio){
-        showError("Escribe tu número de registro.");
-        folioInput.focus();
-        return;
-      }
-
-      revealBtn.disabled = true;
-      revealBtn.textContent = "Buscando tu patrón…";
-
-      try{
-        await new Promise(r => setTimeout(r, 650));
-        const profile = await fetchProfile(folio);
-
-        if(!profile){
-          showError("No encontramos ese registro. Revisa que esté escrito correctamente.");
-          return;
-        }
-
-        await renderProfile(profile);
-      }catch(error){
-        showError(error.message || "Ocurrió un problema al consultar el resultado.");
-      }finally{
-        revealBtn.disabled = false;
-        revealBtn.textContent = "Revelar mi tarjeta";
-      }
-    }
-
-    revealBtn.addEventListener("click", reveal);
-    folioInput.addEventListener("keydown", e => {
-      if(e.key === "Enter") reveal();
-    });
 
     $("#carouselPrev").addEventListener("click", () => moveCarousel(-1));
     $("#carouselNext").addEventListener("click", () => moveCarousel(1));
@@ -1826,17 +2281,15 @@
     carouselShell.addEventListener("touchstart", event => {
       touchStartX = event.touches[0].clientX;
       touchCurrentX = touchStartX;
-    }, { passive:true });
+    }, {passive:true});
 
     carouselShell.addEventListener("touchmove", event => {
       touchCurrentX = event.touches[0].clientX;
-    }, { passive:true });
+    }, {passive:true});
 
     carouselShell.addEventListener("touchend", () => {
       const delta = touchCurrentX - touchStartX;
-      if(Math.abs(delta) > 45){
-        moveCarousel(delta < 0 ? 1 : -1);
-      }
+      if(Math.abs(delta) > 45) moveCarousel(delta < 0 ? 1 : -1);
       touchStartX = 0;
       touchCurrentX = 0;
     });
@@ -1849,27 +2302,80 @@
     });
 
     carouselShell.addEventListener("pointermove", event => {
-      if(event.pointerType === "mouse" && touchStartX){
-        touchCurrentX = event.clientX;
-      }
+      if(event.pointerType === "mouse" && touchStartX) touchCurrentX = event.clientX;
     });
 
     carouselShell.addEventListener("pointerup", event => {
       if(event.pointerType === "mouse" && touchStartX){
         const delta = touchCurrentX - touchStartX;
-        if(Math.abs(delta) > 55){
-          moveCarousel(delta < 0 ? 1 : -1);
-        }
+        if(Math.abs(delta) > 55) moveCarousel(delta < 0 ? 1 : -1);
         touchStartX = 0;
         touchCurrentX = 0;
       }
     });
 
+    async function recordDownload(profileId){
+      try{
+        await fetch(API_URL, {
+          method:"POST",
+          headers:{"Content-Type":"text/plain;charset=utf-8"},
+          body:JSON.stringify({
+            action:"download",
+            surveyRow,
+            nombre:currentProfile?.nombre || "",
+            perfil:profileId
+          }),
+          keepalive:true
+        });
+      }catch(_){}
+    }
+
+    $("#downloadCard").addEventListener("click", async () => {
+      const profile = CAROUSEL_PROFILES[carouselIndex];
+      if(!profile) return;
+
+      const activeCard = carouselCards[carouselIndex];
+      const side = activeCard?.classList.contains("flipped") ? "back" : "front";
+      const imageUrl = `${BASE_CARDS}${profile.id}-${side}.png`;
+      const fileName = `${profile.id}-${side}-volumen-1.png`;
+
+      downloadStatus.textContent = "Preparando archivo original en alta calidad…";
+      $("#downloadCard").disabled = true;
+
+      try{
+        const response = await fetch(imageUrl, {cache:"no-store"});
+        if(!response.ok) throw new Error("No se pudo obtener el archivo.");
+        const blob = await response.blob();
+        const objectUrl = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = objectUrl;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(objectUrl), 3000);
+        downloadStatus.textContent = "✓ Tarjeta descargada en su resolución original.";
+        recordDownload(profile.id);
+      }catch(error){
+        window.open(imageUrl,"_blank","noopener");
+        downloadStatus.textContent = "La tarjeta se abrió en alta calidad para que puedas guardarla.";
+        recordDownload(profile.id);
+      }finally{
+        $("#downloadCard").disabled = false;
+      }
+    });
+
     $("#newSearch").addEventListener("click", () => {
+      currentProfile = null;
+      surveyRow = null;
+      surveyStep = 0;
+      surveyForm.reset();
+      ["experiencia","recursosVisuales"].forEach(restoreRating);
       cardStage.style.display = "none";
       searchPanel.style.display = "block";
-      folioInput.value = "";
-      $("#participantName").textContent = "";
+      surveyIntro.style.display = "block";
+      surveyForm.style.display = "none";
+      unlocking.classList.remove("show");
       $("#revealPanel").classList.remove("show");
       $("#revealSpark").classList.remove("play");
       ["#revealStep1","#revealStep2","#revealStep3","#revealStep4"].forEach(selector => {
@@ -1882,10 +2388,11 @@
       carouselCaption.style.display = "none";
       carouselControls.style.display = "none";
       carouselCards = [];
-      $(".flip-hint").style.display = "";
-      $("#newSearch").style.display = "";
+      downloadPanel.classList.remove("show");
+      downloadStatus.textContent = "";
       clearError();
-      folioInput.focus();
+      updateSurvey();
+      window.scrollTo({top:0,behavior:"smooth"});
     });
 
     // Iluminación dinámica
@@ -1946,6 +2453,7 @@
     resize();
     animate();
     window.addEventListener("resize", resize);
+
   </script>
 </body>
 </html>
