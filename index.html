@@ -1,13 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#061426" />
-  <title>Siguiendo al Conejo Blanco</title>
-  <meta name="description" content="Descubre tu patrón de atención y revela tu tarjeta digital." />
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#061426" name="theme-color"/>
+<title>Siguiendo al Conejo Blanco</title>
+<meta content="Descubre tu patrón de atención y revela tu tarjeta digital." name="description"/>
+<style>
     :root{
       --bg:#dfeaff;
       --bg2:#bfd6ff;
@@ -590,23 +590,97 @@
 
     .unlocking{
       display:none;
-      padding:32px 10px;
+      width:100%;
+      padding:22px 10px;
       text-align:center;
     }
 
-    .unlocking.show{display:block}
+    .unlocking.show{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .unlock-card{
+      width:min(100%,460px);
+      padding:34px 30px 30px;
+      border:1px solid rgba(20,87,214,.18);
+      border-radius:28px;
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.95),rgba(224,238,255,.78)),
+        rgba(220,235,255,.84);
+      box-shadow:
+        0 28px 72px rgba(28,74,160,.22),
+        inset 0 1px rgba(255,255,255,.95);
+      backdrop-filter:blur(24px) saturate(135%);
+      -webkit-backdrop-filter:blur(24px) saturate(135%);
+      animation:unlockCardIn .42s cubic-bezier(.2,.78,.2,1) both;
+    }
+
+    .unlock-card h2{
+      margin:0 0 12px;
+      color:#0b2a78;
+      font-family:"Century Gothic","Avenir Next","Trebuchet MS",Arial,sans-serif;
+      font-size:clamp(1.55rem,4vw,2rem);
+      line-height:1.12;
+      letter-spacing:-.035em;
+      text-wrap:balance;
+    }
+
+    .unlock-card p{
+      max-width:360px;
+      margin:0 auto;
+      color:#49679f;
+      font-family:"Century Gothic","Avenir Next","Trebuchet MS",Arial,sans-serif;
+      font-size:.98rem;
+      line-height:1.55;
+      text-wrap:balance;
+    }
+
+    .unlock-card p strong{
+      color:#1457d6;
+      font-weight:800;
+    }
 
     .unlock-icon{
       width:78px;
       height:78px;
-      margin:0 auto 18px;
+      margin:0 auto 20px;
       display:grid;
       place-items:center;
       border-radius:50%;
-      background:rgba(255,255,255,.78);
+      background:rgba(255,255,255,.82);
       box-shadow:0 18px 45px rgba(20,87,214,.18);
       font-size:2.2rem;
       animation:unlockPulse 1.35s ease-in-out infinite;
+    }
+
+    @keyframes unlockCardIn{
+      from{
+        opacity:0;
+        transform:translateY(16px) scale(.94);
+        filter:blur(4px);
+      }
+      to{
+        opacity:1;
+        transform:none;
+        filter:none;
+      }
+    }
+
+    @media(max-width:520px){
+      .unlocking{padding:14px 0}
+      .unlock-card{
+        width:100%;
+        padding:28px 20px 25px;
+        border-radius:22px;
+      }
+      .unlock-icon{
+        width:68px;
+        height:68px;
+        margin-bottom:17px;
+        font-size:1.9rem;
+      }
     }
 
     @keyframes unlockPulse{
@@ -767,7 +841,7 @@
       text-align:center;
       color:#0b2a78;
       font-family:"Century Gothic","Avenir Next","Trebuchet MS",Arial,sans-serif;
-      font-size:1rem;
+      font-size:.88rem;
       font-weight:700;
     }
 
@@ -1196,7 +1270,7 @@
 
     .back .quote{
       color:#123a82;
-      font-size:1rem;
+      font-size:.88rem;
       line-height:1.62;
       padding:16px;
       border-radius:16px;
@@ -1552,6 +1626,53 @@
       }
     }
 
+    /* Recuadro proporcional para los mensajes previos a la revelación */
+    @media (min-width:901px){
+      body.collection-view .reveal-panel{
+        grid-column:1 / -1;
+        align-self:center;
+        justify-self:center;
+        width:min(520px,calc(100vw - 64px));
+        height:min(430px,58vh);
+        min-height:340px;
+        aspect-ratio:auto;
+        margin:auto;
+        border-radius:28px;
+      }
+
+      body.collection-view .reveal-step{
+        padding:36px 34px;
+      }
+
+      body.collection-view .reveal-main{
+        font-size:clamp(1.7rem,3vw,2.45rem);
+        line-height:1.08;
+      }
+
+      body.collection-view .reveal-final{
+        font-size:clamp(1.75rem,3.2vw,2.6rem);
+        line-height:1.08;
+      }
+
+      body.collection-view .countdown{
+        margin-top:24px;
+        font-size:clamp(3.8rem,7vw,5.2rem);
+      }
+    }
+
+    @media (max-width:900px){
+      .reveal-panel{
+        width:min(100%,430px);
+        height:min(430px,62vh);
+        min-height:350px;
+        aspect-ratio:auto;
+      }
+
+      .reveal-step{
+        padding:30px 24px;
+      }
+    }
+
     footer{
       position:relative;
       z-index:2;
@@ -1563,7 +1684,575 @@
       text-align:center;
     }
 
+
+
+    /* Pantallas de revelación independientes:
+       aparecen centradas antes de cargar la colección. */
+    @media (min-width:901px){
+      body.reveal-view{
+        height:100vh;
+        overflow:hidden;
+      }
+
+      body.reveal-view .app{
+        height:100vh;
+      }
+
+      body.reveal-view header{
+        padding:14px 0;
+        flex:0 0 auto;
+      }
+
+      body.reveal-view footer{
+        display:none;
+      }
+
+      body.reveal-view main{
+        flex:1;
+        width:min(1180px,calc(100% - 32px));
+        height:calc(100vh - 84px);
+        margin:0 auto;
+        padding:20px 0 34px;
+        display:grid;
+        grid-template-columns:1fr;
+        place-items:center;
+        overflow:hidden;
+      }
+
+      body.reveal-view main > .hero{
+        display:none;
+      }
+
+      body.reveal-view main > section:last-child{
+        width:100%;
+        display:grid;
+        place-items:center;
+      }
+
+      body.reveal-view .glass.panel{
+        width:100%;
+        padding:0;
+        border:0;
+        background:transparent;
+        box-shadow:none;
+        backdrop-filter:none;
+        overflow:visible;
+      }
+
+      body.reveal-view .glass.panel::before{
+        display:none;
+      }
+
+      body.reveal-view .card-stage{
+        display:grid !important;
+        width:100%;
+        min-height:calc(100vh - 150px);
+        margin:0;
+        place-items:center;
+      }
+
+      body.reveal-view .collection-left-panel,
+      body.reveal-view .desktop-card-preview{
+        display:none !important;
+      }
+
+      body.reveal-view .reveal-panel{
+        display:none;
+        position:relative;
+        width:min(520px,calc(100vw - 48px));
+        height:min(430px,58vh);
+        min-height:340px;
+        aspect-ratio:auto;
+        margin:0 auto;
+        border-radius:28px;
+      }
+
+      body.reveal-view .reveal-panel.show{
+        display:block;
+      }
+    }
+
     @media (max-width:900px){
+      body.reveal-view main > .hero{
+        display:none;
+      }
+
+      body.reveal-view main{
+        display:grid;
+        grid-template-columns:1fr;
+        place-items:center;
+        min-height:calc(100vh - 88px);
+        padding:18px 0 34px;
+      }
+
+      body.reveal-view main > section:last-child,
+      body.reveal-view .glass.panel{
+        width:100%;
+      }
+
+      body.reveal-view .card-stage{
+        display:grid !important;
+        place-items:center;
+        margin-top:0;
+      }
+
+      body.reveal-view .collection-left-panel,
+      body.reveal-view .desktop-card-preview{
+        display:none !important;
+      }
+
+      body.reveal-view .reveal-panel{
+        width:min(100%,430px);
+        height:min(430px,62vh);
+        min-height:350px;
+        aspect-ratio:auto;
+      }
+    }
+
+    /* Vista de colección a pantalla completa:
+       solo se activa después de responder la encuesta y únicamente en escritorio. */
+    @media (min-width:901px){
+
+      body.collection-view{
+        height:100vh;
+        overflow:hidden;
+      }
+
+      body.collection-view .app{
+        height:100vh;
+      }
+
+      body.collection-view header{
+        padding:14px 0;
+        flex:0 0 auto;
+      }
+
+      body.collection-view footer{
+        display:none;
+      }
+
+      body.collection-view main{
+        flex:1;
+        height:calc(100vh - 84px);
+        margin:0 auto;
+        align-items:center;
+        overflow:hidden;
+
+        width:min(1500px,calc(100% - 48px));
+        grid-template-columns:1fr;
+        gap:0;
+        padding-top:10px;
+      }
+
+      body.collection-view main > .hero{
+        display:none;
+      }
+
+      body.collection-view main > section:last-child{
+        width:100%;
+        min-width:0;
+      }
+
+      body.collection-view .glass.panel{
+        width:100%;
+        padding:30px 42px 34px;
+      }
+
+      body.collection-view .card-stage{
+        width:100%;
+        margin-top:0;
+      }
+
+      body.collection-view .carousel-shell{
+        width:100%;
+        max-width:1280px;
+        height:calc(100vh - 190px);
+        min-height:0;
+        overflow:visible;
+      }
+
+      /* Ajuste únicamente vertical para escritorio:
+         la tarjeta conserva su proporción y cabe completa de arriba a abajo. */
+      body.collection-view .carousel-card{
+        width:auto;
+        height:min(calc(100vh - 220px),645px);
+        aspect-ratio:2/3;
+      }
+
+      body.collection-view .carousel-caption,
+      body.collection-view .carousel-controls,
+      body.collection-view .flip-hint,
+      body.collection-view .download-panel,
+}
+
+
+    /* Dos recuadros independientes:
+       carrusel amplio + tarjeta grande con acciones pegadas al borde */
+    .collection-left-panel{
+      display:contents;
+    }
+
+    .desktop-card-preview{
+      display:none;
+    }
+
+    @media (min-width:901px){
+      body.collection-view main{
+        width:100%;
+        height:calc(100vh - 84px);
+        padding:0 92px 18px 22px;
+      }
+
+      body.collection-view main > section:last-child{
+        width:100%;
+        height:100%;
+      }
+
+      body.collection-view .glass.panel{
+        width:100%;
+        height:100%;
+        padding:0;
+        border:0;
+        border-radius:0;
+        background:transparent;
+        box-shadow:none;
+        backdrop-filter:none;
+        overflow:visible;
+      }
+
+      body.collection-view .glass.panel::before{
+        display:none;
+      }
+
+      body.collection-view .card-stage{
+        display:grid !important;
+        grid-template-columns:minmax(0,1fr) auto;
+        gap:24px;
+        width:100%;
+        height:100%;
+        margin:0;
+        align-items:stretch;
+      }
+
+      body.collection-view .reveal-panel{
+        grid-column:1 / -1;
+        align-self:center;
+      }
+
+      /* PANEL IZQUIERDO: CARRUSEL */
+      body.collection-view .collection-left-panel{
+        grid-column:1;
+        position:relative;
+        display:grid;
+        grid-template-rows:minmax(0,1fr) auto auto;
+        min-width:0;
+        height:100%;
+        padding:14px 18px 12px;
+        border:1px solid rgba(20,87,214,.18);
+        border-radius:28px;
+        background:
+          linear-gradient(180deg,rgba(255,255,255,.40),rgba(225,239,255,.14)),
+          url("./fondo-carrusel.png") center bottom / cover no-repeat;
+        box-shadow:0 30px 90px rgba(28,74,160,.20),inset 0 1px rgba(255,255,255,.9);
+        overflow:hidden;
+        isolation:isolate;
+      }
+
+      body.collection-view .collection-left-panel::before{
+        content:"";
+        position:absolute;
+        inset:0;
+        z-index:0;
+        border-radius:inherit;
+        background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.16),rgba(255,255,255,.02) 58%,rgba(23,78,178,.06));
+        pointer-events:none;
+      }
+
+      body.collection-view .collection-left-panel > *{
+        position:relative;
+        z-index:1;
+      }
+
+      body.collection-view .carousel-shell{
+        grid-row:1;
+        width:100%;
+        max-width:none;
+        height:100%;
+        min-height:0;
+        margin:0;
+        overflow:visible;
+      }
+
+      body.collection-view .carousel-track{
+        inset:0;
+      }
+
+      body.collection-view .carousel-card{
+        width:auto;
+        height:min(calc(100vh - 165px),720px);
+        max-height:100%;
+        aspect-ratio:2/3;
+      }
+
+      body.collection-view .carousel-card.is-prev{
+        transform:translateX(-54%) translateZ(-130px) rotateY(17deg) scale(.74);
+      }
+
+      body.collection-view .carousel-card.is-next{
+        transform:translateX(54%) translateZ(-130px) rotateY(-17deg) scale(.74);
+      }
+
+      body.collection-view .carousel-card.is-far-prev{
+        transform:translateX(-79%) translateZ(-230px) rotateY(24deg) scale(.54);
+      }
+
+      body.collection-view .carousel-card.is-far-next{
+        transform:translateX(79%) translateZ(-230px) rotateY(-24deg) scale(.54);
+      }
+
+      body.collection-view .carousel-caption{
+        grid-row:2;
+        margin:0 auto;
+        font-size:.88rem;
+        line-height:1.1;
+      }
+
+      body.collection-view .carousel-controls{
+        position:absolute;
+        inset:14px 0 58px;
+        z-index:35;
+        display:block;
+        margin:0;
+        pointer-events:none;
+      }
+
+      body.collection-view .carousel-arrow{
+        position:absolute;
+        top:50%;
+        width:52px;
+        height:52px;
+        border:1px solid rgba(20,87,214,.24);
+        background:rgba(255,255,255,.88);
+        box-shadow:0 12px 28px rgba(20,70,155,.22);
+        backdrop-filter:blur(12px);
+        transform:translateY(-50%);
+        pointer-events:auto;
+        z-index:40;
+      }
+
+      body.collection-view #carouselPrev{
+        left:18px;
+      }
+
+      body.collection-view #carouselNext{
+        right:18px;
+      }
+
+      body.collection-view .carousel-dots{
+        position:absolute;
+        left:50%;
+        bottom:-40px;
+        transform:translateX(-50%);
+        pointer-events:auto;
+      }
+
+      body.collection-view .flip-hint{
+        grid-row:3;
+        margin:2px auto 0;
+        font-size:.66rem;
+        line-height:1.15;
+      }
+
+      /* PANEL DERECHO: TARJETA + BARRA FLOTANTE */
+      body.collection-view .desktop-card-preview{
+        grid-column:2;
+        position:relative;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        width:min(36vw, calc((100vh - 102px) * .72));
+        height:100%;
+        padding:14px;
+        border:1px solid rgba(20,87,214,.18);
+        border-radius:28px;
+        background:
+          linear-gradient(145deg,rgba(255,255,255,.94),rgba(224,238,255,.72)),
+          rgba(220,235,255,.80);
+        box-shadow:0 30px 90px rgba(28,74,160,.20),inset 0 1px rgba(255,255,255,.9);
+        perspective:1600px;
+        overflow:visible;
+      }
+
+      body.collection-view .desktop-preview-card{
+        height:min(calc(100vh - 118px),800px);
+        max-width:100%;
+        aspect-ratio:2/3;
+        cursor:pointer;
+        transform-style:preserve-3d;
+      }
+
+      body.collection-view .desktop-preview-inner{
+        position:relative;
+        width:100%;
+        height:100%;
+        transform-style:preserve-3d;
+        transition:transform .82s cubic-bezier(.2,.75,.25,1);
+      }
+
+      body.collection-view .desktop-preview-card.flipped .desktop-preview-inner{
+        transform:rotateY(180deg);
+      }
+
+      body.collection-view .desktop-preview-face{
+        position:absolute;
+        inset:0;
+        overflow:hidden;
+        border-radius:28px;
+        background-color:#000;
+        background-position:center;
+        background-repeat:no-repeat;
+        background-size:contain;
+        backface-visibility:hidden;
+        -webkit-backface-visibility:hidden;
+        box-shadow:0 28px 80px rgba(15,47,112,.30);
+      }
+
+      body.collection-view .desktop-preview-back{
+        transform:rotateY(180deg);
+      }
+
+      /* Barra de iconos pegada al borde derecho */
+      body.collection-view .card-action-rail{
+        position:absolute;
+        top:50%;
+        right:-72px;
+        transform:translateY(-50%);
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+        z-index:80;
+      }
+
+      body.collection-view .action-icon{
+        position:relative;
+        display:grid;
+        place-items:center;
+        width:54px;
+        height:54px;
+        padding:0;
+        border:1px solid rgba(20,87,214,.22);
+        border-radius:50%;
+        background:rgba(255,255,255,.86);
+        color:#174ea6;
+        font-size:1.45rem;
+        line-height:1;
+        cursor:pointer;
+        box-shadow:0 12px 30px rgba(20,70,155,.20),inset 0 1px rgba(255,255,255,.95);
+        backdrop-filter:blur(14px);
+        transition:transform .22s ease, box-shadow .22s ease, background .22s ease;
+      }
+
+      body.collection-view .action-icon:hover{
+        transform:translateX(4px) scale(1.08);
+        background:#fff;
+        box-shadow:0 16px 38px rgba(20,70,155,.28),inset 0 1px rgba(255,255,255,.98);
+      }
+
+      body.collection-view .action-icon:active{
+        transform:translateX(4px) scale(.96);
+      }
+
+      body.collection-view .action-icon::before{
+        content:attr(data-tooltip);
+        position:absolute;
+        right:calc(100% + 12px);
+        top:50%;
+        transform:translateY(-50%) translateX(6px);
+        width:max-content;
+        max-width:190px;
+        padding:8px 11px;
+        border-radius:10px;
+        background:rgba(15,42,92,.94);
+        color:#fff;
+        font-size:.72rem;
+        font-weight:700;
+        letter-spacing:.01em;
+        opacity:0;
+        pointer-events:none;
+        transition:opacity .18s ease, transform .18s ease;
+        box-shadow:0 8px 24px rgba(12,35,80,.24);
+      }
+
+      body.collection-view .action-icon:hover::before,
+      body.collection-view .action-icon:focus-visible::before{
+        opacity:1;
+        transform:translateY(-50%) translateX(0);
+      }
+
+      body.collection-view .action-like .heart-filled{
+        display:none;
+        color:#e53935;
+      }
+
+      body.collection-view .action-like.is-liked .heart-empty{
+        display:none;
+      }
+
+      body.collection-view .action-like.is-liked .heart-filled{
+        display:inline;
+        animation:heartPop .34s ease;
+      }
+
+      @keyframes heartPop{
+        0%{transform:scale(.55)}
+        55%{transform:scale(1.3)}
+        100%{transform:scale(1)}
+      }
+    }
+
+    @media (min-width:901px) and (max-width:1200px){
+      body.collection-view .card-stage{
+        gap:18px;
+      }
+
+      body.collection-view .desktop-card-preview{
+        width:min(36vw, calc((100vh - 102px) * .70));
+        padding-right:38px;
+      }
+
+      body.collection-view #carouselPrev{
+        left:10px;
+      }
+
+      body.collection-view #carouselNext{
+        right:10px;
+      }
+
+      body.collection-view .carousel-arrow{
+        width:46px;
+        height:46px;
+      }
+
+      body.collection-view .action-icon{
+        width:48px;
+        height:48px;
+        font-size:1.25rem;
+      }
+
+      body.collection-view .card-action-rail{
+        right:-64px;
+        gap:10px;
+      }
+    }
+
+    @media (max-width:900px){
+      .card-action-rail{
+        display:none !important;
+      }
+
+      .desktop-download-panel{
+        display:contents;
+      }
       header{padding-top:16px}
       main{
         grid-template-columns:1fr;
@@ -1599,242 +2288,811 @@
       }
       .card{transition:none}
     }
-  </style>
+  
+.brand{display:flex;align-items:center;gap:12px;}
+.brand-name{display:block;height:34px;width:auto;object-fit:contain;}
+
+/* ===== Ajustes visuales del carrusel ===== */
+@media (min-width:901px){
+  body.collection-view .collection-left-panel{
+    position:relative;
+    padding:72px 18px 82px;
+  }
+
+  body.collection-view .carousel-caption{
+    position:absolute;
+    top:18px;
+    left:22px;
+    z-index:50;
+    margin:0;
+    min-height:auto;
+    padding:9px 16px;
+    border:1px solid rgba(20,87,214,.18);
+    border-radius:14px;
+    background:rgba(255,255,255,.94);
+    color:#0b2a78;
+    font-family:"Century Gothic","Avenir Next","Trebuchet MS",Arial,sans-serif;
+    font-size:1rem;
+    font-weight:900;
+    line-height:1.15;
+    box-shadow:0 10px 28px rgba(20,70,155,.16);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+  }
+
+  body.collection-view .flip-hint{
+    position:absolute;
+    left:18px;
+    right:18px;
+    bottom:16px;
+    z-index:50;
+    margin:0;
+    padding:13px 20px;
+    border:1px solid rgba(20,87,214,.16);
+    border-radius:16px;
+    background:rgba(255,255,255,.96);
+    color:#0b2a78;
+    font-family:"Century Gothic","Avenir Next","Trebuchet MS",Arial,sans-serif;
+    font-size:.86rem;
+    font-weight:800;
+    line-height:1.25;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(20,70,155,.16);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+  }
+
+  body.collection-view .carousel-controls{
+    inset:72px 0 82px;
+  }
+
+  body.collection-view .carousel-dots{
+    position:absolute;
+    left:50%;
+    bottom:-54px;
+    transform:translateX(-50%);
+    display:flex;
+    gap:10px;
+    z-index:55;
+  }
+
+  body.collection-view .carousel-dot{
+    width:11px;
+    height:11px;
+    border:1px solid rgba(11,42,120,.35);
+    background:rgba(255,255,255,.82);
+    box-shadow:0 3px 10px rgba(20,70,155,.16);
+  }
+
+  body.collection-view .carousel-dot.active{
+    background:#1457d6;
+    border-color:#1457d6;
+    transform:scale(1.45);
+    box-shadow:0 0 0 4px rgba(255,255,255,.78),0 0 16px rgba(20,87,214,.45);
+  }
+}
+
+@media (max-width:900px){
+  .carousel-caption{
+    display:inline-block;
+    margin:8px 0 12px;
+    padding:8px 14px;
+    border-radius:13px;
+    background:rgba(255,255,255,.94);
+    color:#0b2a78;
+    font-weight:900;
+    box-shadow:0 8px 22px rgba(20,70,155,.14);
+  }
+
+  .flip-hint{
+    margin:14px 0 0;
+    padding:12px 16px;
+    border-radius:15px;
+    background:rgba(255,255,255,.96);
+    color:#0b2a78;
+    font-weight:800;
+    box-shadow:0 8px 22px rgba(20,70,155,.14);
+  }
+
+  .carousel-dot{
+    width:10px;
+    height:10px;
+    border:1px solid rgba(11,42,120,.35);
+    background:rgba(255,255,255,.82);
+  }
+
+  .carousel-dot.active{
+    background:#1457d6;
+    border-color:#1457d6;
+    transform:scale(1.4);
+    box-shadow:0 0 0 3px rgba(255,255,255,.75),0 0 14px rgba(20,87,214,.42);
+  }
+}
+
+
+/* ===== Corrección: conservar tamaño original del carrusel ===== */
+@media (min-width:901px){
+  body.collection-view .collection-left-panel{
+    padding:14px 18px 12px !important;
+  }
+
+  body.collection-view .carousel-shell{
+    width:100% !important;
+    height:100% !important;
+    min-height:0 !important;
+    margin:0 !important;
+  }
+
+  body.collection-view .carousel-track{
+    inset:0 !important;
+  }
+
+  body.collection-view .carousel-controls{
+    inset:14px 0 58px !important;
+  }
+
+  body.collection-view .carousel-caption{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    position:absolute !important;
+    top:18px !important;
+    left:22px !important;
+    right:auto !important;
+    bottom:auto !important;
+    z-index:120 !important;
+    width:auto !important;
+    max-width:calc(100% - 44px) !important;
+    margin:0 !important;
+    padding:9px 16px !important;
+    border:1px solid rgba(20,87,214,.18) !important;
+    border-radius:14px !important;
+    background:rgba(255,255,255,.96) !important;
+    color:#0b2a78 !important;
+    font-size:1rem !important;
+    font-weight:900 !important;
+    line-height:1.15 !important;
+    text-align:left !important;
+    box-shadow:0 10px 28px rgba(20,70,155,.18) !important;
+    pointer-events:none;
+  }
+
+  body.collection-view .flip-hint{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    position:absolute !important;
+    left:18px !important;
+    right:18px !important;
+    bottom:14px !important;
+    z-index:120 !important;
+    margin:0 !important;
+    padding:13px 20px !important;
+    border:1px solid rgba(20,87,214,.16) !important;
+    border-radius:16px !important;
+    background:rgba(255,255,255,.97) !important;
+    color:#0b2a78 !important;
+    font-size:.86rem !important;
+    font-weight:800 !important;
+    line-height:1.25 !important;
+    text-align:center !important;
+    box-shadow:0 10px 30px rgba(20,70,155,.18) !important;
+    pointer-events:none;
+  }
+
+  body.collection-view .carousel-dots{
+    bottom:-40px !important;
+    gap:10px !important;
+    z-index:125 !important;
+  }
+
+  body.collection-view .carousel-dot{
+    width:11px !important;
+    height:11px !important;
+    border:2px solid rgba(255,255,255,.95) !important;
+    background:#86a9df !important;
+    box-shadow:0 3px 10px rgba(20,70,155,.25) !important;
+  }
+
+  body.collection-view .carousel-dot.active{
+    background:#0b2a78 !important;
+    border-color:#ffffff !important;
+    transform:scale(1.45) !important;
+    box-shadow:0 0 0 3px rgba(20,87,214,.18),0 0 16px rgba(20,87,214,.48) !important;
+  }
+}
+
+
+/* Barra inferior compacta */
+@media (min-width:901px){
+body.collection-view .flip-hint{
+ left:20px!important;
+ right:20px!important;
+ bottom:10px!important;
+ padding:8px 14px!important;
+ min-height:auto!important;
+ font-size:13px!important;
+ font-weight:600!important;
+ line-height:1.15!important;
+ border-radius:12px!important;
+ background:rgba(255,255,255,.94)!important;
+ box-shadow:0 6px 18px rgba(20,70,155,.12)!important;
+}
+body.collection-view .carousel-dots{
+ bottom:-26px!important;
+}
+}
+@media (max-width:900px){
+.flip-hint{
+ padding:8px 14px!important;
+ font-size:13px!important;
+ line-height:1.15!important;
+ border-radius:12px!important;
+}
+}
+
+
+/* ÚNICO ajuste visual: ocultar la barra inferior sin tocar el flujo */
+.flip-hint{
+  display:none !important;
+}
+
+
+/* Corrección final: barra eliminada e iconos interactivos */
+@media (min-width:901px){
+  body.collection-view .desktop-card-preview{
+    overflow:visible !important;
+  }
+
+  body.collection-view .card-action-rail{
+    z-index:500 !important;
+    pointer-events:auto !important;
+  }
+
+  body.collection-view .action-icon{
+    pointer-events:auto !important;
+    touch-action:manipulation;
+  }
+
+  body.collection-view .action-icon > *{
+    pointer-events:none !important;
+  }
+}
+
+
+.download-page{
+  position:fixed;
+  inset:0;
+  z-index:4000;
+  display:grid;
+  place-items:center;
+  padding:24px;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .28s ease, visibility .28s ease;
+}
+.download-page.is-open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+.download-page-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(1,8,27,.82);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+.download-page-panel{
+  position:relative;
+  width:min(920px, 100%);
+  max-height:min(90vh, 820px);
+  overflow:auto;
+  padding:36px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:30px;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(63,145,255,.22), transparent 34%),
+    linear-gradient(145deg, rgba(10,28,72,.98), rgba(2,10,31,.98));
+  box-shadow:0 36px 90px rgba(0,0,0,.56);
+  color:#fff;
+}
+.download-page-close{
+  position:absolute;
+  top:16px;
+  right:18px;
+  width:44px;
+  height:44px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:50%;
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  font-size:30px;
+  line-height:1;
+  cursor:pointer;
+}
+.download-page-brand{
+  margin-bottom:10px;
+  color:#82b9ff;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.22em;
+}
+.download-page-panel h2{
+  margin:0;
+  font-size:clamp(30px,4vw,52px);
+  line-height:1;
+}
+.download-page-subtitle{
+  margin:14px 0 28px;
+  color:rgba(255,255,255,.7);
+  font-size:16px;
+}
+.download-options{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:22px;
+}
+.download-option{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  padding:18px;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:24px;
+  background:rgba(255,255,255,.065);
+}
+.download-preview{
+  display:grid;
+  place-items:center;
+  min-height:300px;
+  padding:12px;
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 50% 25%, rgba(87,157,255,.2), transparent 44%),
+    rgba(0,0,0,.18);
+  overflow:hidden;
+}
+.download-preview img{
+  display:block;
+  width:auto;
+  max-width:100%;
+  height:auto;
+  max-height:360px;
+  object-fit:contain;
+  border-radius:14px;
+  box-shadow:0 20px 42px rgba(0,0,0,.36);
+}
+.download-option-info{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.download-option-info span{
+  color:rgba(255,255,255,.58);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.download-option-info strong{
+  font-size:24px;
+}
+.download-option-button{
+  width:100%;
+  min-height:52px;
+  border:0;
+  border-radius:15px;
+  background:#fff;
+  color:#071737;
+  font:inherit;
+  font-weight:900;
+  cursor:pointer;
+}
+body.download-page-open{overflow:hidden;}
+@media(max-width:700px){
+  .download-page{padding:0;align-items:end;}
+  .download-page-panel{
+    width:100%;
+    max-height:94vh;
+    padding:30px 18px 24px;
+    border-radius:28px 28px 0 0;
+  }
+  .download-options{grid-template-columns:1fr;}
+  .download-preview{min-height:240px;}
+  .download-preview img{max-height:310px;}
+}
+
+
+/* Pantalla de descarga alineada al branding */
+.download-page-backdrop{
+  background:rgba(12,42,120,.28) !important;
+  backdrop-filter:blur(18px) saturate(125%) !important;
+  -webkit-backdrop-filter:blur(18px) saturate(125%) !important;
+}
+
+.download-page-panel{
+  border:1px solid rgba(20,87,214,.20) !important;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(143,197,255,.32), transparent 34%),
+    linear-gradient(145deg,rgba(255,255,255,.97),rgba(222,237,255,.95)) !important;
+  box-shadow:0 30px 90px rgba(28,74,160,.28), inset 0 1px rgba(255,255,255,.95) !important;
+  color:var(--text) !important;
+}
+
+.download-page-close{
+  border:1px solid rgba(20,87,214,.18) !important;
+  background:rgba(255,255,255,.76) !important;
+  color:var(--blue) !important;
+  box-shadow:0 10px 24px rgba(28,74,160,.14);
+}
+
+.download-page-brand{
+  color:var(--blue) !important;
+}
+
+.download-page-panel h2{
+  color:var(--text) !important;
+}
+
+.download-page-subtitle{
+  color:var(--muted) !important;
+}
+
+.download-option{
+  border:1px solid rgba(20,87,214,.16) !important;
+  background:rgba(255,255,255,.62) !important;
+  box-shadow:0 18px 42px rgba(28,74,160,.10);
+}
+
+.download-preview{
+  background:
+    radial-gradient(circle at 50% 24%, rgba(143,197,255,.34), transparent 44%),
+    linear-gradient(145deg,rgba(247,251,255,.96),rgba(218,234,255,.84)) !important;
+  border:1px solid rgba(20,87,214,.12);
+}
+
+.download-option-info span{
+  color:var(--muted) !important;
+}
+
+.download-option-info strong{
+  color:var(--text) !important;
+}
+
+.download-option-button{
+  background:linear-gradient(90deg,#092e8f,#1457d6 50%,#2a88ed) !important;
+  color:#fff !important;
+  box-shadow:0 14px 30px rgba(20,87,214,.22);
+}
+
+.download-option-button:hover{
+  filter:brightness(1.05);
+  box-shadow:0 18px 36px rgba(20,87,214,.28) !important;
+}
+
+
+
+
+
+/* Puntos de avance visibles en el espacio inferior del recuadro */
+@media (min-width:901px){
+  body.collection-view .carousel-dots{
+    position:absolute !important;
+    left:50% !important;
+    bottom:-26px !important;
+    transform:translateX(-50%) !important;
+    display:flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    pointer-events:auto !important;
+    z-index:180 !important;
+  }
+}
+
+
+/* Ajustes de la pantalla de descarga */
+.download-title,
+.download-screen h2,
+.download-panel h2{
+  font-size:1.35rem !important;
+  line-height:1.1 !important;
+  font-weight:700 !important;
+}
+
+.download-card-title,
+.download-option-title,
+.download-item h4{
+  font-size:.92rem !important;
+}
+
+.download-item p{
+  font-size:.76rem !important;
+}
+
+.download-item .primary,
+.download-item button,
+.download-download-btn{
+  font-size:.84rem !important;
+  padding:10px 14px !important;
+  border-radius:10px !important;
+}
+
+
+/* Todo el cuestionario en Century Gothic */
+.survey-intro,
+.survey-intro *,
+#surveyForm,
+#surveyForm *,
+.unlocking,
+.unlocking *{
+  font-family:"Century Gothic","Avenir Next","Trebuchet MS",Arial,sans-serif !important;
+}
+
+</style>
 </head>
-
 <body>
-  <div class="loader" id="loader" aria-label="Cargando experiencia">
-    <div class="loader-inner">
-      <div class="clock"><span></span></div>
-      <div class="loader-title">Abriendo la madriguera</div>
-      <div class="loader-sub">Sigue al Conejo Blanco</div>
-    </div>
-  <div class="phrase-transition" id="phraseTransition" aria-hidden="true">
-    <div class="transition-cover"></div>
-    <div class="transition-rays"></div>
-    <div class="phrase-halo"></div>
-    <div class="phrase-wrap">
-      <h2>
-    <span class="intro">¿Estás listo para conocer</span>
-    <span class="highlight">TÚ PATRÓN DE ATENCIÓN?</span>
-      </h2>
-    </div>
-  </div>
-
-  </div>
-
-  <div class="scene" aria-hidden="true">
-    <div class="tunnel"></div>
-  </div>
-  <canvas id="particles" aria-hidden="true"></canvas>
-  <div class="light" id="light" aria-hidden="true"></div>
-
-  <div class="app">
-    <header>
-      <div class="brand">
-        <div class="brand-mark">
-    <img src="Logo WEB.png" alt="Siguiendo al Conejo Blanco">
+<div aria-label="Cargando experiencia" class="loader" id="loader">
+<div class="loader-inner">
+<div class="clock"><span></span></div>
+<div class="loader-title">Abriendo la madriguera</div>
+<div class="loader-sub">Sigue al Conejo Blanco</div>
 </div>
-        <span>Siguiendo al Conejo Blanco</span>
-      </div>
-      <div class="status">
-        <span class="dot"></span>
+<div aria-hidden="true" class="phrase-transition" id="phraseTransition">
+<div class="transition-cover"></div>
+<div class="transition-rays"></div>
+<div class="phrase-halo"></div>
+<div class="phrase-wrap">
+<h2>
+<span class="intro">¿Estás listo para conocer</span>
+<span class="highlight">TÚ PATRÓN DE ATENCIÓN?</span>
+</h2>
+</div>
+</div>
+</div>
+<div aria-hidden="true" class="scene">
+<div class="tunnel"></div>
+</div>
+<canvas aria-hidden="true" id="particles"></canvas>
+<div aria-hidden="true" class="light" id="light"></div>
+<div class="app">
+<header>
+<div class="brand">
+<div class="brand-mark">
+<img alt="Siguiendo al Conejo Blanco" src="Logo WEB.png"/>
+</div>
+
+<img alt="Siguiendo al Conejo Blanco" class="brand-name" src="nombre.png"/></div>
+<div class="status">
+<span class="dot"></span>
         Experiencia activa
       </div>
-    </header>
-
-    <main>
-      <section class="hero">
-              <h1>
-          Tu atención<br />
-          <span class="gradient-text">revela quién eres.</span>
-        </h1>
-        <p class="lead">
+</header>
+<main>
+<section class="hero">
+<h1>
+          Tu atención<br/>
+<span class="gradient-text">revela quién eres.</span>
+</h1>
+<p class="lead">
           Comparte cómo viviste el Volumen I y desbloquea la colección completa de los cinco Patrones de Atención.
         </p>
-
-             </section>
-
-      <section>
-        <div class="glass panel">
-          <div id="searchPanel">
-            <div class="survey-intro" id="surveyIntro">
-              <div class="volume">Volumen I · Patrones de Atención</div>
-              <h2>El viaje continúa…</h2>
-              <p>
+</section>
+<section>
+<div class="glass panel">
+<div id="searchPanel">
+<div class="survey-intro" id="surveyIntro">
+<div class="volume">Volumen I · Patrones de Atención</div>
+<h2>El viaje continúa…</h2>
+<p>
                 Antes de desbloquear la colección completa, queremos conocer cómo viviste esta experiencia.
                 Tus respuestas nos ayudarán a construir los próximos capítulos.
               </p>
-              <button class="primary" id="startSurvey" type="button">Comenzar y desbloquear la colección</button>
-              <div class="helper">Son 7 preguntas · Tiempo estimado: 1 minuto</div>
-            </div>
-
-            <form id="surveyForm" novalidate style="display:none">
-              <div class="survey-progress">
-                <div class="survey-progress-track">
-                  <div class="survey-progress-bar" id="surveyProgressBar"></div>
-                </div>
-                <div class="survey-progress-text" id="surveyProgressText">1 de 7</div>
-              </div>
-
-              <section class="survey-question active" data-step="0">
-                <h3>¿Cuál es tu nombre?</h3>
-                <input id="surveyName" name="nombre" type="text" autocomplete="name" maxlength="120" placeholder="Escribe tu nombre completo" required />
-              </section>
-
-              <section class="survey-question" data-step="1">
-                <h3>¿Cómo calificarías la experiencia en general?</h3>
-                <div class="rating-row" aria-label="Calificación de la experiencia">
-                  <div class="rating-option"><input id="exp1" type="radio" name="experiencia" value="1" required><label for="exp1" aria-label="1 de 5">★</label></div>
-                  <div class="rating-option"><input id="exp2" type="radio" name="experiencia" value="2" required><label for="exp2" aria-label="2 de 5">★</label></div>
-                  <div class="rating-option"><input id="exp3" type="radio" name="experiencia" value="3" required><label for="exp3" aria-label="3 de 5">★</label></div>
-                  <div class="rating-option"><input id="exp4" type="radio" name="experiencia" value="4" required><label for="exp4" aria-label="4 de 5">★</label></div>
-                  <div class="rating-option"><input id="exp5" type="radio" name="experiencia" value="5" required><label for="exp5" aria-label="5 de 5">★</label></div>
-                </div>
-                <div class="rating-feedback" data-rating-feedback="experiencia">Selecciona de 1 a 5 estrellas</div>
-              </section>
-
-              <section class="survey-question" data-step="2">
-                <h3>¿Qué tan útiles fueron los recursos visuales para mantener tu atención?</h3>
-                <div class="rating-row" aria-label="Utilidad de los recursos visuales">
-                  <div class="rating-option"><input id="visual1" type="radio" name="recursosVisuales" value="1" required><label for="visual1" aria-label="1 de 5">★</label></div>
-                  <div class="rating-option"><input id="visual2" type="radio" name="recursosVisuales" value="2" required><label for="visual2" aria-label="2 de 5">★</label></div>
-                  <div class="rating-option"><input id="visual3" type="radio" name="recursosVisuales" value="3" required><label for="visual3" aria-label="3 de 5">★</label></div>
-                  <div class="rating-option"><input id="visual4" type="radio" name="recursosVisuales" value="4" required><label for="visual4" aria-label="4 de 5">★</label></div>
-                  <div class="rating-option"><input id="visual5" type="radio" name="recursosVisuales" value="5" required><label for="visual5" aria-label="5 de 5">★</label></div>
-                </div>
-                <div class="rating-feedback" data-rating-feedback="recursosVisuales">Selecciona de 1 a 5 estrellas</div>
-              </section>
-
-              <section class="survey-question" data-step="3">
-                <h3>¿Consideras que logramos el objetivo de hacerte reflexionar sobre el valor de tu atención?</h3>
-                <div class="choice-grid">
-                  <div class="choice-option"><input id="objetivo0" type="radio" name="objetivo" value="Totalmente" required><label for="objetivo0">Totalmente</label></div>
-                  <div class="choice-option"><input id="objetivo1" type="radio" name="objetivo" value="En gran medida" required><label for="objetivo1">En gran medida</label></div>
-                  <div class="choice-option"><input id="objetivo2" type="radio" name="objetivo" value="Parcialmente" required><label for="objetivo2">Parcialmente</label></div>
-                  <div class="choice-option"><input id="objetivo3" type="radio" name="objetivo" value="Muy poco" required><label for="objetivo3">Muy poco</label></div>
-                  <div class="choice-option"><input id="objetivo4" type="radio" name="objetivo" value="No" required><label for="objetivo4">No</label></div>
-                </div>
-              </section>
-
-              <section class="survey-question" data-step="4">
-                <h3>¿Qué tan aplicable ves este aprendizaje en tu vida personal y profesional?</h3>
-                <div class="scale-row" aria-label="Aplicabilidad del 1 al 10">
-                  <div class="scale-option"><input id="aplica1" type="radio" name="aplicacion" value="1" required><label for="aplica1">1</label></div>
-                  <div class="scale-option"><input id="aplica2" type="radio" name="aplicacion" value="2" required><label for="aplica2">2</label></div>
-                  <div class="scale-option"><input id="aplica3" type="radio" name="aplicacion" value="3" required><label for="aplica3">3</label></div>
-                  <div class="scale-option"><input id="aplica4" type="radio" name="aplicacion" value="4" required><label for="aplica4">4</label></div>
-                  <div class="scale-option"><input id="aplica5" type="radio" name="aplicacion" value="5" required><label for="aplica5">5</label></div>
-                  <div class="scale-option"><input id="aplica6" type="radio" name="aplicacion" value="6" required><label for="aplica6">6</label></div>
-                  <div class="scale-option"><input id="aplica7" type="radio" name="aplicacion" value="7" required><label for="aplica7">7</label></div>
-                  <div class="scale-option"><input id="aplica8" type="radio" name="aplicacion" value="8" required><label for="aplica8">8</label></div>
-                  <div class="scale-option"><input id="aplica9" type="radio" name="aplicacion" value="9" required><label for="aplica9">9</label></div>
-                  <div class="scale-option"><input id="aplica10" type="radio" name="aplicacion" value="10" required><label for="aplica10">10</label></div>
-                </div>
-                <div class="helper">1 = Poco aplicable · 10 = Totalmente aplicable</div>
-              </section>
-
-              <section class="survey-question" data-step="5">
-                <h3>¿Qué fue lo que más capturó tu atención?</h3>
-                <textarea id="capturoAtencion" name="capturoAtencion" maxlength="1000" placeholder="Cuéntanos el momento, idea o dinámica que más recuerdas…" required></textarea>
-              </section>
-
-              <section class="survey-question" data-step="6">
-                <h3>¿Qué mejorarías para el siguiente volumen?</h3>
-                <textarea id="mejora" name="mejora" maxlength="1000" placeholder="Déjanos una sugerencia para continuar construyendo esta historia…" required></textarea>
-              </section>
-
-              <div class="survey-actions">
-                <button class="secondary" id="surveyBack" type="button">Anterior</button>
-                <button class="primary" id="surveyNext" type="button">Siguiente</button>
-              </div>
-              <div class="error" id="error" role="alert"></div>
-            </form>
-
-            <div class="unlocking" id="unlocking">
-              <div class="unlock-icon">🔓</div>
-              <h2>¡Colección desbloqueada!</h2>
-              <p>Preparando los cinco Patrones de Atención…</p>
-            </div>
-          </div>
-
+<button class="primary" id="startSurvey" type="button">Comenzar y desbloquear la colección</button>
+<div class="helper">Son 8 preguntas · Tiempo estimado: 1 minuto</div>
+</div>
+<form id="surveyForm" novalidate="" style="display:none">
+<div class="survey-progress">
+<div class="survey-progress-track">
+<div class="survey-progress-bar" id="surveyProgressBar"></div>
+</div>
+<div class="survey-progress-text" id="surveyProgressText">1 de 8</div>
+</div>
+<section class="survey-question active" data-step="0">
+<h3>¿Cuál es tu nombre?</h3>
+<input autocomplete="name" id="surveyName" maxlength="120" name="nombre" placeholder="Escribe tu nombre completo" required="" type="text"/>
+</section>
+<section class="survey-question" data-step="1">
+<h3>¿Cómo calificarías la experiencia en general?</h3>
+<div aria-label="Calificación de la experiencia" class="rating-row">
+<div class="rating-option"><input id="exp1" name="experiencia" required="" type="radio" value="1"/><label aria-label="1 de 5" for="exp1">★</label></div>
+<div class="rating-option"><input id="exp2" name="experiencia" required="" type="radio" value="2"/><label aria-label="2 de 5" for="exp2">★</label></div>
+<div class="rating-option"><input id="exp3" name="experiencia" required="" type="radio" value="3"/><label aria-label="3 de 5" for="exp3">★</label></div>
+<div class="rating-option"><input id="exp4" name="experiencia" required="" type="radio" value="4"/><label aria-label="4 de 5" for="exp4">★</label></div>
+<div class="rating-option"><input id="exp5" name="experiencia" required="" type="radio" value="5"/><label aria-label="5 de 5" for="exp5">★</label></div>
+</div>
+<div class="rating-feedback" data-rating-feedback="experiencia">Selecciona de 1 a 5 estrellas</div>
+</section>
+<section class="survey-question" data-step="2">
+<h3>¿Qué tan útiles fueron los recursos visuales para mantener tu atención?</h3>
+<div aria-label="Utilidad de los recursos visuales" class="rating-row">
+<div class="rating-option"><input id="visual1" name="recursosVisuales" required="" type="radio" value="1"/><label aria-label="1 de 5" for="visual1">★</label></div>
+<div class="rating-option"><input id="visual2" name="recursosVisuales" required="" type="radio" value="2"/><label aria-label="2 de 5" for="visual2">★</label></div>
+<div class="rating-option"><input id="visual3" name="recursosVisuales" required="" type="radio" value="3"/><label aria-label="3 de 5" for="visual3">★</label></div>
+<div class="rating-option"><input id="visual4" name="recursosVisuales" required="" type="radio" value="4"/><label aria-label="4 de 5" for="visual4">★</label></div>
+<div class="rating-option"><input id="visual5" name="recursosVisuales" required="" type="radio" value="5"/><label aria-label="5 de 5" for="visual5">★</label></div>
+</div>
+<div class="rating-feedback" data-rating-feedback="recursosVisuales">Selecciona de 1 a 5 estrellas</div>
+</section>
+<section class="survey-question" data-step="3">
+<h3>¿Consideras que logramos el objetivo de hacerte reflexionar sobre el valor de tu atención?</h3>
+<div class="choice-grid">
+<div class="choice-option"><input id="objetivo0" name="objetivo" required="" type="radio" value="Totalmente"/><label for="objetivo0">Totalmente</label></div>
+<div class="choice-option"><input id="objetivo1" name="objetivo" required="" type="radio" value="En gran medida"/><label for="objetivo1">En gran medida</label></div>
+<div class="choice-option"><input id="objetivo2" name="objetivo" required="" type="radio" value="Parcialmente"/><label for="objetivo2">Parcialmente</label></div>
+<div class="choice-option"><input id="objetivo3" name="objetivo" required="" type="radio" value="Muy poco"/><label for="objetivo3">Muy poco</label></div>
+<div class="choice-option"><input id="objetivo4" name="objetivo" required="" type="radio" value="No"/><label for="objetivo4">No</label></div>
+</div>
+</section>
+<section class="survey-question" data-step="4">
+<h3>¿Qué tan aplicable ves este aprendizaje en tu vida personal y profesional?</h3>
+<div aria-label="Aplicabilidad del 1 al 10" class="scale-row">
+<div class="scale-option"><input id="aplica1" name="aplicacion" required="" type="radio" value="1"/><label for="aplica1">1</label></div>
+<div class="scale-option"><input id="aplica2" name="aplicacion" required="" type="radio" value="2"/><label for="aplica2">2</label></div>
+<div class="scale-option"><input id="aplica3" name="aplicacion" required="" type="radio" value="3"/><label for="aplica3">3</label></div>
+<div class="scale-option"><input id="aplica4" name="aplicacion" required="" type="radio" value="4"/><label for="aplica4">4</label></div>
+<div class="scale-option"><input id="aplica5" name="aplicacion" required="" type="radio" value="5"/><label for="aplica5">5</label></div>
+<div class="scale-option"><input id="aplica6" name="aplicacion" required="" type="radio" value="6"/><label for="aplica6">6</label></div>
+<div class="scale-option"><input id="aplica7" name="aplicacion" required="" type="radio" value="7"/><label for="aplica7">7</label></div>
+<div class="scale-option"><input id="aplica8" name="aplicacion" required="" type="radio" value="8"/><label for="aplica8">8</label></div>
+<div class="scale-option"><input id="aplica9" name="aplicacion" required="" type="radio" value="9"/><label for="aplica9">9</label></div>
+<div class="scale-option"><input id="aplica10" name="aplicacion" required="" type="radio" value="10"/><label for="aplica10">10</label></div>
+</div>
+<div class="helper">1 = Poco aplicable · 10 = Totalmente aplicable</div>
+</section>
+<section class="survey-question" data-step="5">
+<h3>¿Qué fue lo que más capturó tu atención?</h3>
+<textarea id="capturoAtencion" maxlength="1000" name="capturoAtencion" placeholder="Cuéntanos el momento, idea o dinámica que más recuerdas…" required=""></textarea>
+</section>
+<section class="survey-question" data-step="6">
+<h3>¿Qué mejorarías para el siguiente volumen?</h3>
+<textarea id="mejora" maxlength="1000" name="mejora" placeholder="Déjanos una sugerencia para continuar construyendo esta historia…" required=""></textarea>
+</section>
+<section class="survey-question" data-step="7">
+<h3>Si existiera una continuación de <strong>Siguiendo al Conejo Blanco</strong>, ¿te interesaría vivirla?</h3>
+<div class="choice-grid">
+<div class="choice-option"><input id="continuacion1" name="continuacion" required="" type="radio" value="Sí, sin duda."/><label for="continuacion1">🐇 Sí, sin duda.</label></div>
+<div class="choice-option"><input id="continuacion2" name="continuacion" required="" type="radio" value="Sí, dependiendo del tema."/><label for="continuacion2">📖 Sí, dependiendo del tema.</label></div>
+<div class="choice-option"><input id="continuacion3" name="continuacion" required="" type="radio" value="Tal vez."/><label for="continuacion3">🤔 Tal vez.</label></div>
+<div class="choice-option"><input id="continuacion4" name="continuacion" required="" type="radio" value="No por el momento."/><label for="continuacion4">❌ No por el momento.</label></div>
+</div>
+</section>
+<div class="survey-actions">
+<button class="secondary" id="surveyBack" type="button">Anterior</button>
+<button class="primary" id="surveyNext" type="button">Siguiente</button>
+</div>
+<div class="error" id="error" role="alert"></div>
+</form>
+<div class="unlocking" id="unlocking">
+<div class="unlock-card">
+<div class="unlock-icon">🔓</div>
+<h2>La madriguera ha revelado un nuevo camino.</h2>
+<p>Gracias por compartir tu experiencia.<br><strong>Has desbloqueado la colección completa de los Patrones de Atención.</strong></p>
+</div>
+</div>
+</div>
 <div class="card-stage" id="cardStage">
-
-  <div class="participant-name" id="participantName"></div>
-
-  <div class="reveal-panel" id="revealPanel" aria-live="polite">
-    <section class="reveal-step" id="revealStep1">
-      <h2 class="reveal-heading">
-        <span class="reveal-gradient" id="revealGreeting"></span>
-      </h2>
-      <p class="reveal-support">Tu patrón de atención ha sido identificado.</p>
-    </section>
-
-    <section class="reveal-step" id="revealStep2">
-      <h2 class="reveal-main">
+<div class="participant-name" id="participantName"></div>
+<div aria-live="polite" class="reveal-panel" id="revealPanel">
+<section class="reveal-step" id="revealStep1">
+<h2 class="reveal-heading">
+<span class="reveal-gradient" id="revealGreeting"></span>
+</h2>
+<p class="reveal-support">Tu patrón de atención ha sido identificado.</p>
+</section>
+<section class="reveal-step" id="revealStep2">
+<h2 class="reveal-main">
         Has seguido al <span class="reveal-gradient">Conejo Blanco</span>
-      </h2>
-      <p class="reveal-support">
+</h2>
+<p class="reveal-support">
         hasta descubrir quién guía tu forma de atender el mundo.
       </p>
-    </section>
-
-    <section class="reveal-step" id="revealStep3">
-      <h2 class="reveal-final">
-        <span class="reveal-gradient">Tu forma de atender el mundo</span>
+</section>
+<section class="reveal-step" id="revealStep3">
+<h2 class="reveal-final">
+<span class="reveal-gradient">Tu forma de atender el mundo</span>
         está a punto de revelarse.
       </h2>
-    </section>
-
-    <section class="reveal-step" id="revealStep4">
-      <h2 class="reveal-final">
+</section>
+<section class="reveal-step" id="revealStep4">
+<h2 class="reveal-final">
         Prepárate para revelar tu
         <span class="reveal-gradient">patrón de atención</span>
-      </h2>
-      <div class="countdown" id="countdown" aria-live="polite">3</div>
-    </section>
-
-    <div class="reveal-spark" id="revealSpark" aria-hidden="true"></div>
-  </div>
-
-  <div class="carousel-shell" id="carouselShell" aria-label="Carrusel de patrones de atención">
-    <div class="carousel-track" id="carouselTrack"></div>
-  </div>
-
-  <div class="carousel-caption" id="carouselCaption"></div>
-
-  <div class="carousel-controls" id="carouselControls">
-    <button class="carousel-arrow" id="carouselPrev" type="button" aria-label="Tarjeta anterior">‹</button>
-    <div class="carousel-dots" id="carouselDots" aria-label="Indicadores del carrusel"></div>
-    <button class="carousel-arrow" id="carouselNext" type="button" aria-label="Tarjeta siguiente">›</button>
-  </div>
-
-  <div class="flip-hint">
-    Desliza para explorar los cinco patrones. Toca la tarjeta central para girarla.
-  </div>
-
-  <div class="download-panel" id="downloadPanel">
-    <h3>Conserva tu tarjeta oficial</h3>
-    <p>Descarga la tarjeta que está al frente en su archivo original de alta resolución.</p>
-    <button class="primary" id="downloadCard" type="button">Descargar tarjeta en alta calidad</button>
-    <div class="download-status" id="downloadStatus" aria-live="polite"></div>
-  </div>
-
-  <button class="secondary" id="newSearch" type="button" style="width:100%;margin-top:12px">
-    Responder otra encuesta
-  </button>
-
+</h2>
+<div aria-live="polite" class="countdown" id="countdown">3</div>
+</section>
+<div aria-hidden="true" class="reveal-spark" id="revealSpark"></div>
 </div>
-        </div>
-      </section>
-    </main>
+<section aria-label="Colección de patrones" class="collection-left-panel">
+<div aria-label="Carrusel de patrones de atención" class="carousel-shell" id="carouselShell">
+<div class="carousel-track" id="carouselTrack"></div>
+</div>
+<div class="carousel-caption" id="carouselCaption"></div>
+<div class="carousel-controls" id="carouselControls">
+<button aria-label="Tarjeta anterior" class="carousel-arrow" id="carouselPrev" type="button">‹</button>
+<div aria-label="Indicadores del carrusel" class="carousel-dots" id="carouselDots"></div>
+<button aria-label="Tarjeta siguiente" class="carousel-arrow" id="carouselNext" type="button">›</button>
+</div>
+</section>
+<aside aria-label="Tarjeta seleccionada en tamaño completo" class="desktop-card-preview" id="desktopCardPreview">
+<div aria-label="Toca para girar la tarjeta completa" class="desktop-preview-card" id="desktopPreviewCard" role="button" tabindex="0">
+<div class="desktop-preview-inner">
+<div class="desktop-preview-face desktop-preview-front" id="desktopCardPreviewFront"></div>
+<div class="desktop-preview-face desktop-preview-back" id="desktopCardPreviewBack"></div>
+</div>
+</div>
+<div aria-label="Acciones de la tarjeta" class="card-action-rail">
+<button aria-label="Descargar tarjeta" class="action-icon" data-tooltip="Descargar" id="openDownload" type="button">
+<span aria-hidden="true">⇩</span>
+</button>
+<button aria-label="Girar tarjeta" class="action-icon" data-tooltip="Girar tarjeta" id="flipCard" type="button">
+<span aria-hidden="true">↻</span>
+</button>
+<button aria-label="Me identifico con esta tarjeta" class="action-icon action-like" data-tooltip="Me identifico" id="likeCard" type="button">
+<span aria-hidden="true" class="heart-empty">♡</span>
+<span aria-hidden="true" class="heart-filled">♥</span>
+</button>
+</div>
+</aside>
+</div>
+</div>
+</section>
+</main>
 
-    <footer>
+<div aria-hidden="true" class="download-page" id="downloadPage">
+  <div class="download-page-backdrop" data-close-download></div>
+  <section aria-labelledby="downloadPageTitle" aria-modal="true" class="download-page-panel" role="dialog">
+    <button aria-label="Cerrar descargas" class="download-page-close" data-close-download type="button">×</button>
+    <div class="download-page-brand">SIGUIENDO AL CONEJO BLANCO</div>
+    <h2 id="downloadPageTitle">Descarga tu patrón</h2>
+    <p class="download-page-subtitle" id="downloadPageSubtitle">
+      Elige qué lado de la tarjeta quieres guardar.
+    </p>
+    <div class="download-options">
+      <article class="download-option">
+        <div class="download-preview">
+          <img alt="Frente de la tarjeta" id="downloadFrontPreview"/>
+        </div>
+        <div class="download-option-info">
+          <span>Tarjeta</span>
+          <strong>Frente</strong>
+        </div>
+        <button class="download-option-button" id="downloadFrontChoice" type="button">
+          <span aria-hidden="true">⇩</span> Descargar frente
+        </button>
+      </article>
+      <article class="download-option">
+        <div class="download-preview">
+          <img alt="Reverso de la tarjeta" id="downloadBackPreview"/>
+        </div>
+        <div class="download-option-info">
+          <span>Tarjeta</span>
+          <strong>Reverso</strong>
+        </div>
+        <button class="download-option-button" id="downloadBackChoice" type="button">
+          <span aria-hidden="true">⇩</span> Descargar reverso
+        </button>
+      </article>
+    </div>
+  </section>
+</div>
+
+<footer>
       CONTPAQi® · Experiencia “Siguiendo al Conejo Blanco”
     </footer>
-  </div>
-
-  <script>
+</div>
+<script>
     /*
       IMPORTANTE:
       1) Conserva aquí la misma URL de tu Apps Script.
@@ -1863,8 +3121,19 @@
     const surveyBack = $("#surveyBack");
     const surveyNext = $("#surveyNext");
     const unlocking = $("#unlocking");
-    const downloadPanel = $("#downloadPanel");
-    const downloadStatus = $("#downloadStatus");
+
+    const desktopPreviewCard = $("#desktopPreviewCard");
+    const desktopCardPreviewFront = $("#desktopCardPreviewFront");
+    const desktopCardPreviewBack = $("#desktopCardPreviewBack");
+    const openDownload = $("#openDownload");
+    const downloadPage = $("#downloadPage");
+    const downloadPageSubtitle = $("#downloadPageSubtitle");
+    const downloadFrontPreview = $("#downloadFrontPreview");
+    const downloadBackPreview = $("#downloadBackPreview");
+    const downloadFrontChoice = $("#downloadFrontChoice");
+    const downloadBackChoice = $("#downloadBackChoice");
+    const flipCard = $("#flipCard");
+    const likeCard = $("#likeCard");
 
     let surveyStep = 0;
     let currentProfile = null;
@@ -1987,7 +3256,8 @@
         objetivo:String(form.get("objetivo") || ""),
         aplicacion:String(form.get("aplicacion") || ""),
         capturoAtencion:String(form.get("capturoAtencion") || "").trim(),
-        mejora:String(form.get("mejora") || "").trim()
+        mejora:String(form.get("mejora") || "").trim(),
+        continuacion:String(form.get("continuacion") || "")
       };
     }
 
@@ -2111,6 +3381,160 @@
     let touchStartX = 0;
     let touchCurrentX = 0;
 
+    function toggleDesktopPreview(){
+      desktopPreviewCard?.classList.toggle("flipped");
+    }
+
+    function getActiveProfile(){
+      return CAROUSEL_PROFILES[carouselIndex] || CAROUSEL_PROFILES[0];
+    }
+
+    async function downloadImage(url, filename){
+      try{
+        const response = await fetch(url, {cache:"no-store"});
+        if(!response.ok) throw new Error("No se pudo obtener la imagen.");
+        const blob = await response.blob();
+        const objectUrl = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = objectUrl;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(objectUrl), 2500);
+      }catch(error){
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        link.target = "_blank";
+        link.rel = "noopener";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      }
+    }
+
+    function openDownloadPage(){
+      const profile = getActiveProfile();
+      downloadFrontPreview.src = `${BASE_CARDS}${profile.id}-front.png`;
+      downloadBackPreview.src = `${BASE_CARDS}${profile.id}-back.png`;
+      downloadPageSubtitle.textContent =
+        `${profile.nombre}: elige qué lado de la tarjeta quieres guardar.`;
+      downloadPage.classList.add("is-open");
+      downloadPage.setAttribute("aria-hidden", "false");
+      document.body.classList.add("download-page-open");
+    }
+
+    function closeDownloadPage(){
+      downloadPage.classList.remove("is-open");
+      downloadPage.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("download-page-open");
+    }
+
+    async function shareActiveCard(){
+      const profile = getActiveProfile();
+      const pageUrl = window.location.href.split("#")[0];
+      const imageUrl = `${BASE_CARDS}${profile.id}-front.png`;
+      const shareData = {
+        title: "Siguiendo al Conejo Blanco",
+        text: `Mi patrón de atención es: ${profile.nombre}.`,
+        url: pageUrl
+      };
+
+      try{
+        const response = await fetch(imageUrl, {cache:"no-store"});
+        if(response.ok){
+          const blob = await response.blob();
+          const file = new File([blob], `${profile.id}-frente.png`, {
+            type:blob.type || "image/png"
+          });
+          if(navigator.canShare?.({files:[file]})){
+            shareData.files = [file];
+          }
+        }
+      }catch(error){}
+
+      if(navigator.share){
+        try{
+          await navigator.share(shareData);
+          return;
+        }catch(error){
+          if(error?.name === "AbortError") return;
+        }
+      }
+
+      const fallbackText =
+        `${shareData.text}\nConoce la colección Siguiendo al Conejo Blanco:\n${pageUrl}`;
+
+      try{
+        await navigator.clipboard.writeText(fallbackText);
+        alert("El mensaje se copió. Ya puedes pegarlo en la aplicación que prefieras.");
+      }catch(error){
+        window.prompt("Copia este mensaje para compartirlo:", fallbackText);
+      }
+    }
+
+    desktopPreviewCard?.addEventListener("click", toggleDesktopPreview);
+    desktopPreviewCard?.addEventListener("keydown", event => {
+      if(event.key === "Enter" || event.key === " "){
+        event.preventDefault();
+        toggleDesktopPreview();
+      }
+    });
+
+    openDownload?.addEventListener("click", event => {
+      event.preventDefault();
+      event.stopPropagation();
+      openDownloadPage();
+    });
+
+    downloadFrontChoice?.addEventListener("click", async event => {
+      event.preventDefault();
+      const profile = getActiveProfile();
+      await downloadImage(
+        `${BASE_CARDS}${profile.id}-front.png`,
+        `${profile.id}-frente.png`
+      );
+      recordDownload(profile.id);
+    });
+
+    downloadBackChoice?.addEventListener("click", async event => {
+      event.preventDefault();
+      const profile = getActiveProfile();
+      await downloadImage(
+        `${BASE_CARDS}${profile.id}-back.png`,
+        `${profile.id}-reverso.png`
+      );
+      recordDownload(profile.id);
+    });
+
+    downloadPage?.addEventListener("click", event => {
+      if(event.target.closest("[data-close-download]")){
+        closeDownloadPage();
+      }
+    });
+
+    document.addEventListener("keydown", event => {
+      if(event.key === "Escape" && downloadPage?.classList.contains("is-open")){
+        closeDownloadPage();
+      }
+    });
+    flipCard?.addEventListener("click", event => {
+      event.preventDefault();
+      event.stopPropagation();
+      toggleDesktopPreview();
+    });
+
+    likeCard?.addEventListener("click", event => {
+      event.preventDefault();
+      event.stopPropagation();
+      likeCard.classList.toggle("is-liked");
+      likeCard.setAttribute(
+        "aria-pressed",
+        likeCard.classList.contains("is-liked") ? "true" : "false"
+      );
+    });
+
     function circularDistance(index, active, total){
       let distance = index - active;
       if(distance > total / 2) distance -= total;
@@ -2139,8 +3563,16 @@
         dot.classList.toggle("active", index === carouselIndex);
       });
 
-      carouselCaption.textContent = CAROUSEL_PROFILES[carouselIndex]?.nombre || "";
-      downloadStatus.textContent = "";
+      const activeProfile = CAROUSEL_PROFILES[carouselIndex];
+      carouselCaption.textContent = activeProfile?.nombre || "";
+      if(desktopPreviewCard && desktopCardPreviewFront && desktopCardPreviewBack && activeProfile){
+        desktopPreviewCard.classList.remove("flipped");
+        desktopCardPreviewFront.style.backgroundImage =
+          `url("${BASE_CARDS}${activeProfile.id}-front.png")`;
+        desktopCardPreviewBack.style.backgroundImage =
+          `url("${BASE_CARDS}${activeProfile.id}-back.png")`;
+      }
+
     }
 
     function moveCarousel(direction){
@@ -2209,7 +3641,7 @@
       const revealPanel = $("#revealPanel");
       const revealSpark = $("#revealSpark");
       const steps = [$("#revealStep1"),$("#revealStep2"),$("#revealStep3"),$("#revealStep4")];
-      $("#revealGreeting").textContent = `👋 Hola, ${profile.nombre || "bienvenido"}`;
+      $("#revealGreeting").textContent = `Hola, ${profile.nombre || "bienvenido"}`;
       const wait = ms => new Promise(resolve => setTimeout(resolve,ms));
 
       async function showStep(step){
@@ -2223,14 +3655,15 @@
         step.classList.remove("leaving");
       }
 
+      document.body.classList.remove("collection-view");
+      document.body.classList.add("reveal-view");
       searchPanel.style.display = "none";
       cardStage.style.display = "block";
       carouselShell.classList.remove("show");
       carouselControls.style.display = "none";
       carouselCaption.style.display = "none";
-      $(".flip-hint").style.display = "none";
-      $("#newSearch").style.display = "none";
-      downloadPanel.classList.remove("show");
+      $(".flip-hint")?.style.setProperty("display", "none");
+
       revealPanel.classList.add("show");
 
       await showStep(steps[0]);
@@ -2261,14 +3694,15 @@
       revealSpark.classList.add("play");
       await wait(360);
 
-      buildCarousel(perfil);
       revealPanel.classList.remove("show");
+      document.body.classList.remove("reveal-view");
+      document.body.classList.add("collection-view");
+
+      buildCarousel(perfil);
       carouselShell.classList.add("show");
       carouselControls.style.display = "flex";
       carouselCaption.style.display = "block";
-      $(".flip-hint").style.display = "";
-      $("#newSearch").style.display = "";
-      downloadPanel.classList.add("show");
+      $(".flip-hint")?.style.removeProperty("display");
 
       const activeCard = carouselCards[carouselIndex];
       if(activeCard){
@@ -2333,71 +3767,6 @@
         });
       }catch(_){}
     }
-
-    $("#downloadCard").addEventListener("click", async () => {
-      const profile = CAROUSEL_PROFILES[carouselIndex];
-      if(!profile) return;
-
-      const activeCard = carouselCards[carouselIndex];
-      const side = activeCard?.classList.contains("flipped") ? "back" : "front";
-      const imageUrl = `${BASE_CARDS}${profile.id}-${side}.png`;
-      const fileName = `${profile.id}-${side}-volumen-1.png`;
-
-      downloadStatus.textContent = "Preparando archivo original en alta calidad…";
-      $("#downloadCard").disabled = true;
-
-      try{
-        const response = await fetch(imageUrl, {cache:"no-store"});
-        if(!response.ok) throw new Error("No se pudo obtener el archivo.");
-        const blob = await response.blob();
-        const objectUrl = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = objectUrl;
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        setTimeout(() => URL.revokeObjectURL(objectUrl), 3000);
-        downloadStatus.textContent = "✓ Tarjeta descargada en su resolución original.";
-        recordDownload(profile.id);
-      }catch(error){
-        window.open(imageUrl,"_blank","noopener");
-        downloadStatus.textContent = "La tarjeta se abrió en alta calidad para que puedas guardarla.";
-        recordDownload(profile.id);
-      }finally{
-        $("#downloadCard").disabled = false;
-      }
-    });
-
-    $("#newSearch").addEventListener("click", () => {
-      currentProfile = null;
-      surveyRow = null;
-      surveyStep = 0;
-      surveyForm.reset();
-      ["experiencia","recursosVisuales"].forEach(restoreRating);
-      cardStage.style.display = "none";
-      searchPanel.style.display = "block";
-      surveyIntro.style.display = "block";
-      surveyForm.style.display = "none";
-      unlocking.classList.remove("show");
-      $("#revealPanel").classList.remove("show");
-      $("#revealSpark").classList.remove("play");
-      ["#revealStep1","#revealStep2","#revealStep3","#revealStep4"].forEach(selector => {
-        $(selector).classList.remove("active","leaving");
-      });
-      carouselShell.classList.remove("show");
-      carouselTrack.innerHTML = "";
-      carouselDots.innerHTML = "";
-      carouselCaption.textContent = "";
-      carouselCaption.style.display = "none";
-      carouselControls.style.display = "none";
-      carouselCards = [];
-      downloadPanel.classList.remove("show");
-      downloadStatus.textContent = "";
-      clearError();
-      updateSurvey();
-      window.scrollTo({top:0,behavior:"smooth"});
-    });
 
     // Iluminación dinámica
     const light = $("#light");
