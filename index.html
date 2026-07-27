@@ -2910,6 +2910,23 @@ body.download-page-open{overflow:hidden;}
   }
 }
 
+
+/* Century Gothic para toda la encuesta únicamente en móvil */
+@media (max-width:900px){
+  .survey-intro,
+  .survey-intro *,
+  #surveyForm,
+  #surveyForm *,
+  .survey-question,
+  .survey-question *,
+  .survey-progress,
+  .survey-progress *,
+  .unlocking,
+  .unlocking *{
+    font-family:"Century Gothic","Avenir Next","Trebuchet MS",Arial,sans-serif !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3098,7 +3115,7 @@ body.download-page-open{overflow:hidden;}
 <div aria-label="Carrusel de patrones de atención" class="carousel-shell" id="carouselShell">
 <div class="carousel-track" id="carouselTrack"></div>
 </div>
-<div class="mobile-flip-message">✨ Toca la tarjeta para girarla y descubrir el mensaje que tu patrón de atención tiene para ti.</div>
+<div class="mobile-flip-message">Toca la tarjeta para girarla y descubrir lo que cada patrón tiene para ti.</div>
 <div class="carousel-caption" id="carouselCaption"></div>
 <div class="carousel-controls" id="carouselControls">
 <button aria-label="Tarjeta anterior" class="carousel-arrow" id="carouselPrev" type="button">‹</button>
