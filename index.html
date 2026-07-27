@@ -2830,6 +2830,30 @@ body.download-page-open{overflow:hidden;}
   font-family:"Century Gothic","Avenir Next","Trebuchet MS",Arial,sans-serif !important;
 }
 
+
+@media (max-width:900px){
+  .mobile-download-wrap{
+    display:block;
+    margin:18px auto 8px;
+    width:100%;
+    max-width:360px;
+  }
+  .mobile-download-btn{
+    width:100%;
+    padding:14px 18px;
+    border:0;
+    border-radius:16px;
+    background:linear-gradient(90deg,#092e8f,#1457d6,#2a88ed);
+    color:#fff;
+    font-family:"Century Gothic","Avenir Next",Arial,sans-serif;
+    font-weight:700;
+    font-size:1rem;
+  }
+}
+@media (min-width:901px){
+  .mobile-download-wrap{display:none!important;}
+}
+
 </style>
 </head>
 <body>
@@ -3641,7 +3665,7 @@ body.download-page-open{overflow:hidden;}
       const revealPanel = $("#revealPanel");
       const revealSpark = $("#revealSpark");
       const steps = [$("#revealStep1"),$("#revealStep2"),$("#revealStep3"),$("#revealStep4")];
-      $("#revealGreeting").textContent = `Hola, ${profile.nombre || "bienvenido"}`;
+      $("#revealGreeting").textContent = `👋 Hola, ${profile.nombre || "bienvenido"}`;
       const wait = ms => new Promise(resolve => setTimeout(resolve,ms));
 
       async function showStep(step){
@@ -3828,5 +3852,17 @@ body.download-page-open{overflow:hidden;}
     window.addEventListener("resize", resize);
 
   </script>
+<div class="mobile-download-wrap"><button class="mobile-download-btn" id="mobileDownloadBtn">⬇ Descargar tarjeta</button></div>
+<script>
+document.addEventListener('click',function(e){
+ if(e.target && e.target.id==='mobileDownloadBtn'){
+   const btn=document.getElementById('downloadCardButton')||
+             document.getElementById('downloadButton')||
+             document.querySelector('[data-download-card]');
+   if(btn){btn.click();}
+ }
+});
+</script>
+
 </body>
 </html>
