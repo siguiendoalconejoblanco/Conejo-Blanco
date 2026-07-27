@@ -833,29 +833,33 @@
     }
 
     @media (max-width:600px){
+      /* Ajuste exclusivo para celular:
+         conserva intacta la versión de escritorio y permite ver
+         la tarjeta completa con parte de las tarjetas laterales. */
       .carousel-shell{
-        height:calc((min(100vw - 28px, 430px)) * 1.5 + 12px);
+        height:calc((min(100vw - 76px, 360px)) * 1.5 + 24px);
         min-height:0;
+        overflow:visible;
       }
 
       .carousel-card{
-        width:min(calc(100vw - 28px),430px);
+        width:min(calc(100vw - 76px),360px);
       }
 
       .carousel-card.is-prev{
-        transform:translateX(-56%) translateZ(-140px) rotateY(17deg) scale(.68);
+        transform:translateX(-62%) translateZ(-140px) rotateY(17deg) scale(.72);
       }
 
       .carousel-card.is-next{
-        transform:translateX(56%) translateZ(-140px) rotateY(-17deg) scale(.68);
+        transform:translateX(62%) translateZ(-140px) rotateY(-17deg) scale(.72);
       }
 
       .carousel-card.is-far-prev{
-        transform:translateX(-78%) translateZ(-240px) rotateY(24deg) scale(.50);
+        transform:translateX(-88%) translateZ(-240px) rotateY(24deg) scale(.52);
       }
 
       .carousel-card.is-far-next{
-        transform:translateX(78%) translateZ(-240px) rotateY(-24deg) scale(.50);
+        transform:translateX(88%) translateZ(-240px) rotateY(-24deg) scale(.52);
       }
     }
 
