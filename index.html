@@ -385,25 +385,223 @@
       margin-top:26px;
     }
 
-    .card{
+    .carousel-shell{
+      display:none;
       position:relative;
-      width:min(100%,430px);
-      aspect-ratio:2/3;
+      width:100%;
+      max-width:900px;
+      height:680px;
+      min-height:680px;
       margin:0 auto;
+      overflow:visible;
+      touch-action:pan-y;
+      user-select:none;
+      -webkit-user-select:none;
+    }
+
+    .carousel-shell.show{
+      display:block;
+    }
+
+    .carousel-track{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      perspective:1600px;
+    }
+
+    .carousel-card{
+      position:absolute;
+      width:min(calc(100vw - 40px),430px);
+      aspect-ratio:2/3;
       transform-style:preserve-3d;
-      transition:transform .85s cubic-bezier(.2,.75,.25,1);
+      transition:
+        transform .62s cubic-bezier(.2,.75,.2,1),
+        opacity .45s ease,
+        filter .45s ease;
       cursor:pointer;
+      border-radius:28px;
+      will-change:transform,opacity;
+    }
+
+    .carousel-card .card-inner{
+      position:absolute;
+      inset:0;
+      transform-style:preserve-3d;
+      transition:transform .82s cubic-bezier(.2,.75,.25,1);
       border-radius:28px;
     }
 
-    .card.flipped{transform:rotateY(180deg)}
+    .carousel-card.flipped .card-inner{
+      transform:rotateY(180deg);
+    }
 
-    .front,
-    .back{
+    .carousel-card.is-active{
+      z-index:10;
+      opacity:1;
+      filter:none;
+      transform:translateX(0) translateZ(80px);
+    }
+
+    .carousel-card.is-prev{
+      z-index:6;
+      opacity:.72;
+      filter:brightness(.82) saturate(.82);
+      transform:translateX(-56%) translateZ(-120px) rotateY(17deg) scale(.78);
+    }
+
+    .carousel-card.is-next{
+      z-index:6;
+      opacity:.72;
+      filter:brightness(.82) saturate(.82);
+      transform:translateX(56%) translateZ(-120px) rotateY(-17deg) scale(.78);
+    }
+
+    .carousel-card.is-far-prev{
+      z-index:3;
+      opacity:.34;
+      filter:brightness(.7) saturate(.65);
+      transform:translateX(-83%) translateZ(-230px) rotateY(25deg) scale(.61);
+    }
+
+    .carousel-card.is-far-next{
+      z-index:3;
+      opacity:.34;
+      filter:brightness(.7) saturate(.65);
+      transform:translateX(83%) translateZ(-230px) rotateY(-25deg) scale(.61);
+    }
+
+    .carousel-card.is-hidden{
+      z-index:1;
+      opacity:0;
+      pointer-events:none;
+      transform:translateX(0) translateZ(-320px) scale(.48);
+    }
+
+    .carousel-card.reveal-in{
+      animation:carouselRevealIn .95s cubic-bezier(.2,.78,.2,1) both;
+    }
+
+    .carousel-caption{
+      margin:14px auto 0;
+      min-height:28px;
+      text-align:center;
+      color:#0b2a78;
+      font-family:"Century Gothic","Avenir Next","Trebuchet MS",Arial,sans-serif;
+      font-size:1rem;
+      font-weight:700;
+    }
+
+    .carousel-controls{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:18px;
+      margin-top:12px;
+    }
+
+    .carousel-arrow{
+      width:46px;
+      height:46px;
+      padding:0;
+      border:1px solid rgba(255,255,255,.82);
+      border-radius:50%;
+      color:#0b2a78;
+      background:rgba(255,255,255,.74);
+      box-shadow:0 10px 28px rgba(20,87,214,.16);
+      font-size:1.55rem;
+      font-weight:800;
+      cursor:pointer;
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+    }
+
+    .carousel-dots{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+
+    .carousel-dot{
+      width:8px;
+      height:8px;
+      padding:0;
+      border:0;
+      border-radius:50%;
+      background:rgba(11,42,120,.25);
+      transition:transform .25s ease,background .25s ease;
+    }
+
+    .carousel-dot.active{
+      background:#1457d6;
+      transform:scale(1.45);
+    }
+
+    @keyframes carouselRevealIn{
+      0%{
+        opacity:0;
+        transform:translateY(26px) scale(.86);
+        filter:blur(7px);
+      }
+      62%{
+        opacity:1;
+        filter:blur(0);
+      }
+      100%{
+        opacity:1;
+      }
+    }
+
+    @media (max-width:600px){
+      .carousel-shell{
+        height:calc((min(100vw - 28px, 430px)) * 1.5 + 12px);
+        min-height:0;
+      }
+
+      .carousel-card{
+        width:min(calc(100vw - 28px),430px);
+      }
+
+      .carousel-card.is-prev{
+        transform:translateX(-56%) translateZ(-140px) rotateY(17deg) scale(.68);
+      }
+
+      .carousel-card.is-next{
+        transform:translateX(56%) translateZ(-140px) rotateY(-17deg) scale(.68);
+      }
+
+      .carousel-card.is-far-prev{
+        transform:translateX(-78%) translateZ(-240px) rotateY(24deg) scale(.50);
+      }
+
+      .carousel-card.is-far-next{
+        transform:translateX(78%) translateZ(-240px) rotateY(-24deg) scale(.50);
+      }
+    }
+
+    .carousel-card .front,
+    .carousel-card .back{
       background-color:#000;
       background-repeat:no-repeat;
       background-position:center;
-      background-size:100% 100%;
+      background-size:contain;
+    }
+
+    .carousel-card .face{
+      position:absolute;
+      inset:0;
+      overflow:hidden;
+      border-radius:28px;
+      backface-visibility:hidden;
+      -webkit-backface-visibility:hidden;
+      box-shadow:0 28px 80px rgba(15,47,112,.28);
+    }
+
+    .carousel-card .back{
+      transform:rotateY(180deg);
     }
 
     .card-image{
@@ -1231,36 +1429,20 @@
     <div class="reveal-spark" id="revealSpark" aria-hidden="true"></div>
   </div>
 
-  <div
-    class="card"
-    id="profileCard"
-    tabindex="0"
-    role="button"
-    aria-label="Girar tarjeta"
-  >
+  <div class="carousel-shell" id="carouselShell" aria-label="Carrusel de patrones de atención">
+    <div class="carousel-track" id="carouselTrack"></div>
+  </div>
 
-    <article class="face front">
-      <img
-        id="cardFrontImage"
-        class="card-image"
-        src=""
-        alt="Frente de la tarjeta"
-      >
-    </article>
+  <div class="carousel-caption" id="carouselCaption"></div>
 
-    <article class="face back">
-      <img
-        id="cardBackImage"
-        class="card-image"
-        src=""
-        alt="Reverso de la tarjeta"
-      >
-    </article>
-
+  <div class="carousel-controls" id="carouselControls">
+    <button class="carousel-arrow" id="carouselPrev" type="button" aria-label="Tarjeta anterior">‹</button>
+    <div class="carousel-dots" id="carouselDots" aria-label="Indicadores del carrusel"></div>
+    <button class="carousel-arrow" id="carouselNext" type="button" aria-label="Tarjeta siguiente">›</button>
   </div>
 
   <div class="flip-hint">
-    Toca la tarjeta para descubrir el mensaje que tiene para ti.
+    Desliza para explorar los cinco patrones. Toca la tarjeta central para girarla.
   </div>
 
   <button class="primary" id="newSearch" type="button">
@@ -1293,7 +1475,11 @@
     const errorBox = $("#error");
     const cardStage = $("#cardStage");
     const searchPanel = $("#searchPanel");
-    const card = $("#profileCard");
+    const carouselShell = $("#carouselShell");
+    const carouselTrack = $("#carouselTrack");
+    const carouselDots = $("#carouselDots");
+    const carouselCaption = $("#carouselCaption");
+    const carouselControls = $("#carouselControls");
 
     const phraseTransition = $("#phraseTransition");
 
@@ -1368,31 +1554,148 @@
       errorBox.style.display = "none";
     }
 
+    const CAROUSEL_PROFILES = [
+      { id:"conejo", nombre:"Conejo Blanco" },
+      { id:"reina", nombre:"Reina de Corazones" },
+      { id:"alicia", nombre:"Alicia" },
+      { id:"gato", nombre:"El Gato Cheshire" },
+      { id:"sombrerero", nombre:"El Sombrerero Loco" }
+    ];
+
+    let carouselIndex = 0;
+    let carouselCards = [];
+    let touchStartX = 0;
+    let touchCurrentX = 0;
+
+    function circularDistance(index, active, total){
+      let distance = index - active;
+      if(distance > total / 2) distance -= total;
+      if(distance < -total / 2) distance += total;
+      return distance;
+    }
+
+    function updateCarousel(){
+      const total = carouselCards.length;
+
+      carouselCards.forEach((cardElement, index) => {
+        const distance = circularDistance(index, carouselIndex, total);
+        cardElement.classList.remove(
+          "is-active","is-prev","is-next",
+          "is-far-prev","is-far-next","is-hidden"
+        );
+
+        if(distance === 0) cardElement.classList.add("is-active");
+        else if(distance === -1) cardElement.classList.add("is-prev");
+        else if(distance === 1) cardElement.classList.add("is-next");
+        else if(distance === -2) cardElement.classList.add("is-far-prev");
+        else if(distance === 2) cardElement.classList.add("is-far-next");
+        else cardElement.classList.add("is-hidden");
+
+        if(distance !== 0){
+          cardElement.classList.remove("flipped");
+        }
+      });
+
+      [...carouselDots.children].forEach((dot,index) => {
+        dot.classList.toggle("active", index === carouselIndex);
+      });
+
+      carouselCaption.textContent =
+        CAROUSEL_PROFILES[carouselIndex]?.nombre || "";
+    }
+
+    function moveCarousel(direction){
+      if(!carouselCards.length) return;
+      carouselIndex =
+        (carouselIndex + direction + carouselCards.length) % carouselCards.length;
+      updateCarousel();
+    }
+
+    function buildCarousel(initialProfile){
+      const BASE_CARDS =
+        "https://siguiendoalconejoblanco.github.io/Conejo-Blanco/cards/";
+
+      carouselTrack.innerHTML = "";
+      carouselDots.innerHTML = "";
+      carouselCards = [];
+
+      CAROUSEL_PROFILES.forEach((item,index) => {
+        const cardElement = document.createElement("div");
+        cardElement.className = "carousel-card";
+        cardElement.dataset.profile = item.id;
+        cardElement.tabIndex = 0;
+        cardElement.setAttribute("role","button");
+        cardElement.setAttribute(
+          "aria-label",
+          `${item.nombre}. Toca para colocar al frente o girar.`
+        );
+
+        cardElement.innerHTML = `
+          <div class="card-inner">
+            <article
+              class="face front"
+              style='background:#000 url("${BASE_CARDS}${item.id}-front.png") center center / contain no-repeat;'
+            ></article>
+            <article
+              class="face back"
+              style='background:#000 url("${BASE_CARDS}${item.id}-back.png") center center / contain no-repeat;'
+            ></article>
+          </div>
+        `;
+
+        cardElement.addEventListener("click", () => {
+          if(index === carouselIndex){
+            cardElement.classList.toggle("flipped");
+          }else{
+            carouselIndex = index;
+            updateCarousel();
+          }
+        });
+
+        cardElement.addEventListener("keydown", event => {
+          if(event.key === "Enter" || event.key === " "){
+            event.preventDefault();
+            if(index === carouselIndex){
+              cardElement.classList.toggle("flipped");
+            }else{
+              carouselIndex = index;
+              updateCarousel();
+            }
+          }
+        });
+
+        carouselTrack.appendChild(cardElement);
+        carouselCards.push(cardElement);
+
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "carousel-dot";
+        dot.setAttribute("aria-label", `Ver ${item.nombre}`);
+        dot.addEventListener("click", () => {
+          carouselIndex = index;
+          updateCarousel();
+        });
+        carouselDots.appendChild(dot);
+      });
+
+      const initialIndex = CAROUSEL_PROFILES.findIndex(
+        item => item.id === initialProfile
+      );
+      carouselIndex = initialIndex >= 0 ? initialIndex : 0;
+      updateCarousel();
+    }
+
     async function renderProfile(profile){
       const perfil = String(profile.perfil || "")
         .trim()
         .toLowerCase();
 
-      const perfilesPermitidos = [
-        "conejo",
-        "reina",
-        "alicia",
-        "gato",
-        "sombrerero"
-      ];
+      const perfilesPermitidos = CAROUSEL_PROFILES.map(item => item.id);
 
       if (!perfilesPermitidos.includes(perfil)) {
         throw new Error(`El perfil "${perfil}" no tiene una tarjeta configurada.`);
       }
 
-      const BASE_CARDS =
-        "https://siguiendoalconejoblanco.github.io/Conejo-Blanco/cards/";
-
-      const frontSrc = `${BASE_CARDS}${perfil}-front.png`;
-      const backSrc  = `${BASE_CARDS}${perfil}-back.png`;
-
-      const frontFace = document.querySelector(".face.front");
-      const backFace  = document.querySelector(".face.back");
       const revealPanel = $("#revealPanel");
       const revealSpark = $("#revealSpark");
       const steps = [
@@ -1402,11 +1705,8 @@
         $("#revealStep4")
       ];
 
-      frontFace.style.background = `#000 url("${frontSrc}") center center / contain no-repeat`;
-      backFace.style.background  = `#000 url("${backSrc}") center center / contain no-repeat`;
-
       $("#revealGreeting").textContent =
-        `Hola, ${profile.nombre || "bienvenido"}`;
+        `👋 Hola, ${profile.nombre || "bienvenido"}`;
 
       const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -1424,11 +1724,12 @@
         step.classList.remove("leaving");
       }
 
-      card.classList.remove("flipped","reveal-in");
       searchPanel.style.display = "none";
       cardStage.style.display = "block";
 
-      card.style.display = "none";
+      carouselShell.classList.remove("show");
+      carouselControls.style.display = "none";
+      carouselCaption.style.display = "none";
       $(".flip-hint").style.display = "none";
       $("#newSearch").style.display = "none";
 
@@ -1438,7 +1739,6 @@
       await showStep(steps[1]);
       await showStep(steps[2]);
 
-      // Cuarta pantalla con conteo 3, 2, 1.
       steps.forEach(item => item.classList.remove("active","leaving"));
       const countdownStep = steps[3];
       const countdown = $("#countdown");
@@ -1465,16 +1765,22 @@
 
       await wait(360);
 
+      buildCarousel(perfil);
+
       revealPanel.classList.remove("show");
-      card.style.display = "";
+      carouselShell.classList.add("show");
+      carouselControls.style.display = "flex";
+      carouselCaption.style.display = "block";
       $(".flip-hint").style.display = "";
       $("#newSearch").style.display = "";
 
-      void card.offsetWidth;
-      card.classList.add("reveal-in");
+      const activeCard = carouselCards[carouselIndex];
+      if(activeCard){
+        activeCard.classList.add("reveal-in");
+        await wait(950);
+        activeCard.classList.remove("reveal-in");
+      }
 
-      await wait(950);
-      card.classList.remove("reveal-in");
       revealSpark.classList.remove("play");
     }
 
@@ -1514,11 +1820,48 @@
       if(e.key === "Enter") reveal();
     });
 
-    card.addEventListener("click", () => card.classList.toggle("flipped"));
-    card.addEventListener("keydown", e => {
-      if(e.key === "Enter" || e.key === " "){
-        e.preventDefault();
-        card.classList.toggle("flipped");
+    $("#carouselPrev").addEventListener("click", () => moveCarousel(-1));
+    $("#carouselNext").addEventListener("click", () => moveCarousel(1));
+
+    carouselShell.addEventListener("touchstart", event => {
+      touchStartX = event.touches[0].clientX;
+      touchCurrentX = touchStartX;
+    }, { passive:true });
+
+    carouselShell.addEventListener("touchmove", event => {
+      touchCurrentX = event.touches[0].clientX;
+    }, { passive:true });
+
+    carouselShell.addEventListener("touchend", () => {
+      const delta = touchCurrentX - touchStartX;
+      if(Math.abs(delta) > 45){
+        moveCarousel(delta < 0 ? 1 : -1);
+      }
+      touchStartX = 0;
+      touchCurrentX = 0;
+    });
+
+    carouselShell.addEventListener("pointerdown", event => {
+      if(event.pointerType === "mouse"){
+        touchStartX = event.clientX;
+        touchCurrentX = event.clientX;
+      }
+    });
+
+    carouselShell.addEventListener("pointermove", event => {
+      if(event.pointerType === "mouse" && touchStartX){
+        touchCurrentX = event.clientX;
+      }
+    });
+
+    carouselShell.addEventListener("pointerup", event => {
+      if(event.pointerType === "mouse" && touchStartX){
+        const delta = touchCurrentX - touchStartX;
+        if(Math.abs(delta) > 55){
+          moveCarousel(delta < 0 ? 1 : -1);
+        }
+        touchStartX = 0;
+        touchCurrentX = 0;
       }
     });
 
@@ -1532,12 +1875,15 @@
       ["#revealStep1","#revealStep2","#revealStep3","#revealStep4"].forEach(selector => {
         $(selector).classList.remove("active","leaving");
       });
-      card.classList.remove("flipped","reveal-in");
-      card.style.display = "";
+      carouselShell.classList.remove("show");
+      carouselTrack.innerHTML = "";
+      carouselDots.innerHTML = "";
+      carouselCaption.textContent = "";
+      carouselCaption.style.display = "none";
+      carouselControls.style.display = "none";
+      carouselCards = [];
       $(".flip-hint").style.display = "";
       $("#newSearch").style.display = "";
-      document.querySelector(".face.front").style.background = "";
-      document.querySelector(".face.back").style.background = "";
       clearError();
       folioInput.focus();
     });
