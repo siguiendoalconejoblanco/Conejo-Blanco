@@ -2831,27 +2831,57 @@ body.download-page-open{overflow:hidden;}
 }
 
 
+/* Botón de descarga exclusivo para celular, debajo de la tarjeta */
+.mobile-card-download{
+  display:none;
+}
+
 @media (max-width:900px){
-  .mobile-download-wrap{
+  body.collection-view .mobile-card-download{
     display:block;
-    margin:18px auto 8px;
-    width:100%;
-    max-width:360px;
+    width:min(100%,360px);
+    margin:18px auto 4px;
   }
-  .mobile-download-btn{
+
+  body.collection-view .mobile-card-download-button{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
     width:100%;
-    padding:14px 18px;
+    min-height:48px;
+    padding:13px 18px;
     border:0;
-    border-radius:16px;
-    background:linear-gradient(90deg,#092e8f,#1457d6,#2a88ed);
+    border-radius:15px;
     color:#fff;
-    font-family:"Century Gothic","Avenir Next",Arial,sans-serif;
+    background:linear-gradient(90deg,#092e8f,#1457d6 52%,#2a88ed);
+    box-shadow:0 14px 32px rgba(20,87,214,.24);
+    font-family:"Century Gothic","Avenir Next","Trebuchet MS",Arial,sans-serif;
+    font-size:.95rem;
     font-weight:700;
-    font-size:1rem;
+  }
+
+  body.collection-view .mobile-card-download-button:active{
+    transform:scale(.98);
   }
 }
+
 @media (min-width:901px){
-  .mobile-download-wrap{display:none!important;}
+  .mobile-card-download{
+    display:none !important;
+  }
+}
+
+
+@media (max-width:900px){
+  body.collection-view .flip-hint{
+    display:block !important;
+    margin:12px auto 0;
+    text-align:center;
+    font-family:"Century Gothic","Avenir Next","Trebuchet MS",Arial,sans-serif;
+    font-size:.82rem;
+    font-weight:700;
+  }
 }
 
 </style>
@@ -3047,6 +3077,12 @@ body.download-page-open{overflow:hidden;}
 <button aria-label="Tarjeta anterior" class="carousel-arrow" id="carouselPrev" type="button">‹</button>
 <div aria-label="Indicadores del carrusel" class="carousel-dots" id="carouselDots"></div>
 <button aria-label="Tarjeta siguiente" class="carousel-arrow" id="carouselNext" type="button">›</button>
+</div>
+<div class="mobile-card-download">
+<button aria-label="Descargar tarjeta seleccionada" class="mobile-card-download-button" id="mobileCardDownload" type="button">
+<span aria-hidden="true">⬇</span>
+<span>Descargar tarjeta</span>
+</button>
 </div>
 </section>
 <aside aria-label="Tarjeta seleccionada en tamaño completo" class="desktop-card-preview" id="desktopCardPreview">
@@ -3455,6 +3491,31 @@ body.download-page-open{overflow:hidden;}
       document.body.classList.remove("download-page-open");
     }
 
+    const mobileCardDownload = $("#mobileCardDownload");
+    
+mobileCardDownload?.addEventListener("click", ()=>{
+  if(typeof downloadCurrentCard==="function"){
+    downloadCurrentCard();
+  }else if(typeof downloadCurrentImage==="function"){
+    downloadCurrentImage();
+  }else{
+    const active=document.querySelector(".carousel-card.is-active .front");
+    if(active){
+      const bg=getComputedStyle(active).backgroundImage;
+      const m=/url\(["']?(.*?)["']?\)/.exec(bg);
+      if(m){
+        const a=document.createElement("a");
+        a.href=m[1];
+        a.download="tarjeta.png";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
+    }
+  }
+});
+
+
     async function shareActiveCard(){
       const profile = getActiveProfile();
       const pageUrl = window.location.href.split("#")[0];
@@ -3852,17 +3913,5 @@ body.download-page-open{overflow:hidden;}
     window.addEventListener("resize", resize);
 
   </script>
-<div class="mobile-download-wrap"><button class="mobile-download-btn" id="mobileDownloadBtn">⬇ Descargar tarjeta</button></div>
-<script>
-document.addEventListener('click',function(e){
- if(e.target && e.target.id==='mobileDownloadBtn'){
-   const btn=document.getElementById('downloadCardButton')||
-             document.getElementById('downloadButton')||
-             document.querySelector('[data-download-card]');
-   if(btn){btn.click();}
- }
-});
-</script>
-
 </body>
 </html>
