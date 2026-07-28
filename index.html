@@ -3011,6 +3011,32 @@ body.download-page-open{overflow:hidden;}
 }
 </style>
 
+
+<style>
+/* Quitar el recuadro interno */
+.unlock-card{
+background:transparent!important;
+border:none!important;
+box-shadow:none!important;
+backdrop-filter:none!important;
+-webkit-backdrop-filter:none!important;
+padding:0!important;
+max-width:100%!important;
+}
+
+/* Opciones de encuesta en peso normal */
+.choice-option label,
+.scale-option label{
+font-weight:500!important;
+}
+
+/* Solo la opción seleccionada en negritas */
+.choice-option input:checked + label,
+.scale-option input:checked + label{
+font-weight:700!important;
+}
+</style>
+
 </head>
 <body>
 <div aria-label="Cargando experiencia" class="loader" id="loader">
