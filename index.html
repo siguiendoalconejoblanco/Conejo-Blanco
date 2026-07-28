@@ -1660,13 +1660,14 @@
       }
     }
 
-    @media (max-width:900px){
-      .reveal-panel{
-        width:min(100%,430px);
-        height:min(430px,62vh);
-        min-height:350px;
-        aspect-ratio:auto;
-      }
+   @media (max-width:900px){
+  .reveal-panel{
+    width:min(calc(100vw - 76px),360px);
+    aspect-ratio:2/3;
+    height:auto;
+    min-height:0;
+  }
+}
 
       .reveal-step{
         padding:30px 24px;
