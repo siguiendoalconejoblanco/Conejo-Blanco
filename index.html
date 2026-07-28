@@ -1660,14 +1660,13 @@
       }
     }
 
-   @media (max-width:900px){
-  .reveal-panel{
-    width:min(calc(100vw - 76px),360px);
-    aspect-ratio:2/3;
-    height:auto;
-    min-height:0;
-  }
-}
+    @media (max-width:900px){
+      .reveal-panel{
+        width:min(calc(100vw - 76px),360px);
+        aspect-ratio:2/3;
+        height:auto;
+        min-height:0;
+      }
 
       .reveal-step{
         padding:30px 24px;
@@ -1802,11 +1801,17 @@
         display:none !important;
       }
 
+      /* Mismo tamaño que las tarjetas en celular */
       body.reveal-view .reveal-panel{
-        width:min(100%,430px);
-        height:min(430px,62vh);
-        min-height:350px;
-        aspect-ratio:auto;
+        width:min(calc(100vw - 76px),360px) !important;
+        height:auto !important;
+        min-height:0 !important;
+        aspect-ratio:2/3 !important;
+        margin:0 auto;
+      }
+
+      body.reveal-view .reveal-step{
+        padding:30px 24px;
       }
     }
 
